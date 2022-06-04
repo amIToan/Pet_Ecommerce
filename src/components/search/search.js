@@ -2,18 +2,20 @@ import "./search.scss";
 import { SearchRounded } from "@mui/icons-material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDebounce from "../../ulities";
 const Search = () => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
+  const debouncedValue = useDebounce(keyword, 200);
+  console.log(debouncedValue);
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+      navigate(`/search/${debouncedValue}`);
     } else {
-      navigate.push("/");
+      navigate("/");
     }
   };
-  console.log(keyword);
   return (
     <div className="app_Search_container">
       <form className="app_Search_Form" onSubmit={submitHandler}>

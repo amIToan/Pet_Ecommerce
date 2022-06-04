@@ -12,23 +12,32 @@ import { SavedSearchOutlined, ShoppingBagOutlined } from "@mui/icons-material";
 import { addToCart } from "../../redux/sliceReducer/CartSlice";
 import { Currency } from "../../RequestMethos";
 import { Link } from "react-router-dom";
+import { useQuery } from "react-query";
+import Loading from "../../components/Error.Loading/Loading";
 import "../../components/items_category/ItemcategoryCo.scss";
+async function fetchingData(keyword = "", pageNumber) {
+  const { data } = await publicRequest.get(
+    `/products?keyword=${keyword}&pageNumber=${pageNumber}`
+  );
+  return data;
+}
 const Search = () => {
+  console.log("chayj may lan");
   const dispatch = useDispatch();
   const { keyword, pageNumber } = useParams();
-  const [searchData, setSearchData] = useState(null);
-  useEffect(() => {
-    async function fetchingData(keyword = "", pageNumber) {
-      const res = await publicRequest.get(
-        `/products?keyword=${keyword}&pageNumber=${pageNumber}`
-      );
-      setSearchData(res.data);
+  // const [searchData, setSearchData] = useState(null);
+  const { isLoading, isError, data, isFetching, refetch } = useQuery(
+    ["pagination", keyword, pageNumber],
+    () => fetchingData(keyword, pageNumber),
+    {
+      keepPreviousData: true,
+      cacheTime: 600000,
+      staleTime: 300000,
     }
-    fetchingData(keyword, pageNumber);
-    return () => {
-      setSearchData(null);
-    };
-  }, [keyword, pageNumber]);
+  );
+  useEffect(() => {
+    refetch();
+  }, [keyword]);
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
     toast("The product added successfully!", toastConfig);
@@ -38,10 +47,11 @@ const Search = () => {
       <Navbar />
       <Map />
       <ToastContainer />
+      {(isFetching || isLoading) && <Loading />}
       <div className="container my-4">
         <div className="row">
-          {searchData?.products?.length > 0 ? (
-            searchData.products.map((item) => (
+          {data?.products?.length > 0 ? (
+            data.products.map((item) => (
               <div className="col-12 col-md-3 p-3 mb-3">
                 <div className="app_hotProduct_imgContainer">
                   <img
@@ -88,13 +98,12 @@ const Search = () => {
           <div className="col-12">
             <Pagination
               keyword={keyword ? keyword : ""}
-              pages={searchData?.pages}
-              page={searchData?.page}
+              pages={data?.pages}
+              page={data?.page}
             />
           </div>
         </div>
       </div>
-
       <Footer />
     </>
   );
