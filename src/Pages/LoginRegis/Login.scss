@@ -1,0 +1,36 @@
+.app_Login {
+  background: #fff;
+  border-radius: 5px;
+  position: relative;
+  padding: 35px 30px 30px;
+  box-shadow: 0 1px 11px hsl(0deg 0% 66% / 27%);
+  text-align: center;
+  input {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #e4e4e4;
+    border-radius: 5px;
+    color: #8a8a8a;
+  }
+  button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px 0;
+    border: 0;
+    background-color: #6c78b3;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  p {
+    padding: 0;
+    margin: 0;
+    margin-top: 30px;
+    a {
+      color: #7a7a7a;
+      text-decoration: none;
+    }
+  }
+}

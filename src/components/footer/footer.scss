@@ -1,0 +1,146 @@
+.app_footer_container {
+  .app_footer_top {
+    background: none repeat scroll 0 0 #6c78b3;
+    color: #fff;
+    .app_footer_top_firstLine {
+      text-transform: uppercase;
+      padding: 20px 0 20px;
+      font-size: 16px;
+      font-family: "Open Sans";
+      font-weight: bold;
+      margin: 0;
+    }
+    .app_footer_top_links {
+      margin: auto;
+      padding: 0px;
+      list-style: none;
+      li {
+        list-style: none;
+        padding: 5px 0px;
+        a {
+          color: #fff;
+          transition: color 300ms ease-in-out 0s,
+            background-color 300ms ease-in-out 0s,
+            background-position 300ms ease-in-out 0s;
+          text-decoration: none;
+          &::before {
+            content: "\f105";
+            font-family: FontAwesome;
+            font-size: 13px;
+            display: inline-block;
+            cursor: pointer;
+            line-height: 20px;
+            color: #fff;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .app_footer_top_contacts {
+      a {
+        text-decoration: none;
+        color: #fff;
+      }
+      .app_footer_top_contact_items {
+        border: medium none;
+        display: block;
+        font-style: normal;
+        line-height: 1.5em;
+        margin: 10px auto 7px;
+        padding-bottom: 5px;
+        text-align: left;
+        font-weight: 500;
+        .add-icon {
+          &::before {
+            content: "\f041";
+            font-family: FontAwesome;
+            font-size: 15px;
+            color: #fff;
+            height: 35px;
+            width: 35px;
+            line-height: 35px;
+            font-style: normal;
+            text-align: center;
+            margin-right: 10px;
+            border-radius: 30px;
+            border: 2px #fff solid;
+            border-radius: 25px;
+            float: left;
+          }
+        }
+      }
+      .phone-icon {
+        &::before {
+          content: "\f095";
+          font-family: FontAwesome;
+          font-size: 15px;
+          color: #fff;
+          height: 35px;
+          width: 35px;
+          margin-right: 5px;
+          line-height: 35px;
+          float: left;
+          font-style: normal;
+          text-align: center;
+          margin-right: 10px;
+          border: 2px #fff solid;
+          border-radius: 25px;
+        }
+      }
+      .email-icon {
+        &::before {
+          content: "\f0e0";
+          font-family: FontAwesome;
+          font-size: 14px;
+          color: #fff;
+          height: 35px;
+          width: 35px;
+          margin-right: 5px;
+          line-height: 35px;
+          float: left;
+          font-style: normal;
+          text-align: center;
+          margin-right: 10px;
+          border: 2px #fff solid;
+          border-radius: 25px;
+        }
+      }
+    }
+  }
+  .app_footer_middle {
+    background-color: #191919;
+    overflow: hidden;
+    padding: 25px 0;
+    .app_footer_middle_paymentAccess {
+      img {
+        margin: 0px 10px 0px 0px;
+        width: 50px;
+      }
+    }
+    .app_footer_middle_socials {
+      float: right;
+      .icon {
+        font-size: 18px;
+        border-radius: 3px;
+        line-height: 35px;
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        padding: 0;
+        text-decoration: none;
+        color: #fff;
+        &:hover {
+          background-color: unset;
+        }
+      }
+    }
+  }
+  .app_footer_bottom {
+    background: none repeat scroll 0 0 #111;
+    overflow: hidden;
+    padding: 25px 0;
+    color: #fff;
+    font-size: 16px;
+  }
+}

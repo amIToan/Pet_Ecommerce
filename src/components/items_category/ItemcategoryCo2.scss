@@ -1,0 +1,17 @@
+.app_Itemscategory_Co2 {
+  padding: 20px;
+  overflow: hidden;
+  margin: 15px 0 20px;
+  border: 1px solid #efefef;
+  .app_Itemscategory_shortDesc {
+    font-size: 13px;
+    line-height: 1.5em;
+  }
+  .app_Itemscategory_addToCart {
+    background: #eee;
+    padding: 11px;
+    color: #333;
+    border: 1px solid #ddd;
+    text-transform: uppercase;
+  }
+}

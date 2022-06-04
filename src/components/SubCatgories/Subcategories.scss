@@ -1,0 +1,26 @@
+.app_subcategory_hover {
+  -webkit-animation: bounding 1s infinite;
+  -moz-animation: bounding 1s infinite;
+  -o-animation: bounding 1s infinite;
+  animation: bounding 1s infinite;
+}
+
+.app_subcategory_title::after {
+  content: "";
+  margin: 5px auto 0px;
+  border-bottom: 3px solid;
+  width: 150px;
+  display: block;
+}
+
+@keyframes bounding {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(8%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}

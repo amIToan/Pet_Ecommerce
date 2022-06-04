@@ -1,0 +1,59 @@
+.app_container_discountedProducts {
+  background-color: #fff;
+  padding: 20px 0 0px;
+  .app_discountedProducts_title {
+    color: #000;
+    margin: 0 auto 20px;
+    text-transform: none;
+    padding: 0 0 5px;
+    text-align: left;
+    border-bottom: 2px solid #ddd;
+    h2 {
+      color: #000;
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+      padding: 6px 10px 10px 0;
+      position: relative;
+      display: inline-block;
+      letter-spacing: normal;
+      background-color: #ffffff;
+      border-bottom: 2px solid #6c78b4;
+      margin-bottom: -6px;
+    }
+  }
+  .app_discountedProduct_imgContainer {
+    position: relative;
+    cursor: pointer;
+    .app_discountedProduct_options {
+      font-size: 13px;
+      position: absolute;
+      bottom: -50%;
+      left: 0;
+      display: flex;
+      opacity: 0;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      border-bottom: 2px #6c78b4 solid;
+      transition: all 0.35s ease-in-out;
+      transition-delay: 0.2s;
+      .app_discountedProduct_Add {
+        flex: 1;
+        text-align: center;
+        line-height: 42px;
+        border-right: solid #ccc 1px;
+        &:hover {
+          background: #6c78b4;
+          color: #fff;
+        }
+      }
+    }
+    &:hover {
+      .app_discountedProduct_options {
+        bottom: 0;
+        opacity: 1;
+      }
+    }
+  }
+}
