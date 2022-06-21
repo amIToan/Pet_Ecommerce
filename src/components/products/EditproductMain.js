@@ -2,9 +2,7 @@ import { useState, useEffect, forwardRef } from "react";
 import Toast from "./../LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateProduct,
-} from "./../../Redux/Actions/ProductActions";
+import { updateProduct } from "./../../Redux/Actions/ProductActions";
 import {
   PRODUCT_RESET,
   PRODUCT_UPDATE_RESET,
@@ -14,6 +12,10 @@ import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
 import { DropzoneArea } from "material-ui-dropzone";
 import { ImageURL } from "../../Helps";
+import EditorToolbar, { modules, formats } from "../QuillEditor/EditorToolbar";
+import "./TextEditor.css";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -61,16 +63,15 @@ const EditProductMain = ({ productId, product }, ref) => {
     success: successUpdate,
   } = productUpdate;
   const [cate, setCate] = useState({});
-  ref.current = successUpdate
+  ref.current = successUpdate;
   useEffect(() => {
-    // 
+    //
     if (successUpdate) {
       alert("You've updated successfully!!!", ToastObjects);
       dispatch({ type: PRODUCT_UPDATE_RESET });
     }
     return () => {
       setAssignPro({});
-
     };
   }, [productId, successUpdate]);
   useEffect(() => {
@@ -161,22 +162,23 @@ const EditProductMain = ({ productId, product }, ref) => {
                         <label htmlFor="description" className="form-label">
                           Description
                         </label>
-                        <textarea
-                          placeholder="Type here"
-                          className="form-control"
-                          rows="7"
-                          required
-                          name="description"
-                          value={
-                            assginPro.description ? assginPro.description : ""
-                          }
-                          onChange={(e) =>
-                            setAssignPro({
-                              ...assginPro,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
-                        ></textarea>
+                        <EditorToolbar toolbarId={"t1"} />
+                        {assginPro?.description && (
+                          <ReactQuill
+                            theme="snow"
+                            value={assginPro.description}
+                            onChange={(value) => {
+                              console.log(value);
+                              setAssignPro({
+                                ...assginPro,
+                                description: value,
+                              });
+                            }}
+                            placeholder={"Write something awesome..."}
+                            modules={modules("t1")}
+                            formats={formats}
+                          />
+                        )}
                       </div>
                       <div className="mb-4">
                         <label htmlFor="categories" className="form-label">

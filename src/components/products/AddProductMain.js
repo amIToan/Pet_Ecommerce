@@ -8,6 +8,10 @@ import Toast from "../LoadingError/Toast";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
 import { DropzoneArea } from "material-ui-dropzone";
+import EditorToolbar, { modules, formats } from "../QuillEditor/EditorToolbar";
+import "./TextEditor.css";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 const ToastObjects = {
   pauseOnFocusLoss: false,
   draggable: false,
@@ -15,7 +19,13 @@ const ToastObjects = {
   autoClose: 2000,
 };
 const AddProductMain = () => {
-  const [newProduct, setNewProduct] = useState({});
+  const [newProduct, setNewProduct] = useState({
+    description: "",
+  });
+  const ondescription = (value) => {
+    console.log(value);
+    setNewProduct({ ...newProduct, description: value });
+  };
   const [cate, setCate] = useState({});
   const dispatch = useDispatch();
   const {
@@ -115,22 +125,17 @@ const AddProductMain = () => {
                     <label htmlFor="description" className="form-label">
                       Description
                     </label>
-                    <textarea
-                      placeholder="Type here"
-                      className="form-control"
-                      rows="7"
-                      required
-                      name="description"
+                    <EditorToolbar toolbarId={"t1"} />
+                    <ReactQuill
+                      theme="snow"
                       value={
                         newProduct.description ? newProduct.description : ""
                       }
-                      onChange={(e) =>
-                        setNewProduct({
-                          ...newProduct,
-                          [e.target.name]: e.target.value,
-                        })
-                      }
-                    ></textarea>
+                      onChange={ondescription}
+                      placeholder={"Write something awesome..."}
+                      modules={modules("t1")}
+                      formats={formats}
+                    />
                   </div>
                   <div className="mb-4">
                     <label htmlFor="categories" className="form-label">

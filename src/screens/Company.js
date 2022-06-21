@@ -5,7 +5,7 @@ import Toast from "../components/LoadingError/Toast";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 import { useState, useLayoutEffect, useEffect } from "react";
-import { ImageURL } from "../Helps"
+import { ImageURL } from "../Helps";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,8 +13,15 @@ import {
   createCompanyInfo,
   updateCompanyInfo,
 } from "../Redux/Actions/CompanyAction";
-import { RESET_COMPANY, RESET_COMPANY_ACTION } from "../Redux/Constants/CompanyConsants";
+import { RESET_COMPANY_ACTION } from "../Redux/Constants/CompanyConsants";
 import { toast } from "react-toastify";
+import EditorToolbar, {
+  modules,
+  formats,
+} from "../components/QuillEditor/EditorToolbar";
+import "../components/products/TextEditor.css";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
 const Company = () => {
   const dispatch = useDispatch();
   //
@@ -34,9 +41,7 @@ const Company = () => {
   const handlePostUpdateCompany = (e) => {
     e.preventDefault();
     if (Object.keys(companyInfo).length === 0) {
-      toast.error(
-        "Something's wrong!!!"
-      );
+      toast.error("Something's wrong!!!");
       return;
     } else {
       const getFormData = (object) =>
@@ -47,7 +52,7 @@ const Company = () => {
       const formData = getFormData(companyInfo);
       if (Object.keys(newCompany[0]).length === 0) {
         dispatch(createCompanyInfo(formData));
-        toast.success("Your information is created successfully!")
+        toast.success("Your information is created successfully!");
       } else {
         dispatch(updateCompanyInfo(companyInfo?._id, formData));
       }
@@ -63,13 +68,11 @@ const Company = () => {
   }, [newCompany, dispatch]);
   useEffect(() => {
     if (companyActionInfo) {
-      alert("You have updated successfully")
-      dispatch(getCompanyInfo())
+      alert("You have updated successfully");
+      dispatch(getCompanyInfo());
       dispatch({ type: RESET_COMPANY_ACTION });
     }
-    return () => {
-
-    };
+    return () => {};
   }, [dispatch, companyActionInfo]);
 
   return (
@@ -433,21 +436,22 @@ const Company = () => {
                       <label htmlFor="Introduction" className="form-label">
                         Introduction
                       </label>
-                      <input
-                        type="text"
-                        placeholder="Type here"
-                        className="form-control"
-                        id="Introduction"
-                        name="Introduction"
-                        required
-                        value={companyInfo.Introduction}
-                        onChange={(e) =>
-                          setCompanyInfo({
-                            ...companyInfo,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
-                      />
+                      <EditorToolbar toolbarId={"company"} />
+                      {companyInfo?.Introduction && (
+                        <ReactQuill
+                          theme="snow"
+                          value={companyInfo.Introduction}
+                          onChange={(value) =>
+                            setCompanyInfo({
+                              ...companyInfo,
+                              Introduction: value,
+                            })
+                          }
+                          placeholder={"Write something awesome..."}
+                          modules={modules("company")}
+                          formats={formats}
+                        />
+                      )}
                     </div>
                     <div className="mb-4">
                       <label htmlFor="" className="form-label"></label>
@@ -461,7 +465,6 @@ const Company = () => {
                               ...companyInfo,
                               logoHeader: files[0],
                             });
-                            console.log(files);
                           }}
                           filesLimit={1}
                           previewGridClasses={{
@@ -474,7 +477,7 @@ const Company = () => {
                     <div>
                       <button className="d-block btn btn-primary mx-auto">
                         {Object.keys(newCompany ? newCompany[0] : {}).length ===
-                          0
+                        0
                           ? "Publish"
                           : "Update"}
                       </button>

@@ -3,31 +3,31 @@ import Sidebar from "./../components/sidebar";
 import Header from "./../components/Header";
 import EditProductMain from "./../components/products/EditproductMain";
 import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
 import { publicRequest } from "../Helps";
 const ProductEditScreen = ({ match }) => {
-  const dispatch = useDispatch();
   const productId = match.params.id;
-  const [product, setProduct] = useState(null)
-  const changeCom = useRef()
-  console.log(changeCom.current)
+  const [product, setProduct] = useState(null);
+  const changeCom = useRef();
   useEffect(() => {
     async function fatchingApi(productId) {
-      const { data } = await publicRequest.get(`/api/products/${productId
-        }`)
-      data && setProduct(data)
+      const { data } = await publicRequest.get(`/api/products/${productId}`);
+      data && setProduct(data);
     }
-    fatchingApi(productId)
+    fatchingApi(productId);
     return () => {
-      setProduct(null)
-    }
-  }, [productId, changeCom.current])
+      setProduct(null);
+    };
+  }, [productId, changeCom.current]);
   return (
     <>
       <Sidebar />
       <main className="main-wrap">
         <Header />
-        <EditProductMain productId={productId} product={product && product} ref={changeCom} />
+        <EditProductMain
+          productId={productId}
+          product={product && product}
+          ref={changeCom}
+        />
       </main>
     </>
   );
