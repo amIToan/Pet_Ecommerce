@@ -1,26 +1,31 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Product from "./Product";
 import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../../Redux/Actions/ProductActions";
 import Loading from "../LoadingError/Loading";
 import Message from "../LoadingError/Error";
-import { PRODUCT_DELETE_RESET } from "../../Redux/Constants/ProductConstants";
-const MainProducts = () => {
+import { publicRequest } from "../../Helps";
+import { NEWS_DELETE_RESET } from "../../Redux/Constants/NewsConstant";
+import SinglePost from "./SinglePost";
+const MainLists = () => {
+  const [news, setNews] = useState(null);
+  const {
+    userLogin: { userInfo },
+  } = useSelector((state) => state);
+
   const dispatch = useDispatch();
-
-  const productList = useSelector((state) => state.productList);
-  const { loading, error, products } = productList;
-
-  const productDelete = useSelector((state) => state.productDelete);
-  const { error: errorDelete, success: successDelete } = productDelete;
-
   useEffect(() => {
-    if (successDelete) {
-      dispatch(listProducts());
-      dispatch({ type: PRODUCT_DELETE_RESET });
+    async function fetchingNews() {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await publicRequest.get(`/api/news/all`, config);
+      data && setNews(data);
     }
-  }, [successDelete]);
+    fetchingNews();
+    return () => setNews(null);
+  });
 
   return (
     <section className="content-main">
@@ -62,19 +67,15 @@ const MainProducts = () => {
         </header>
 
         <div className="card-body">
-          {errorDelete && (
+          {/* {errorDelete && (
             <Message variant="alert-danger">{errorDelete}</Message>
-          )}
-          {loading ? (
+          )} */}
+          {!news ? (
             <Loading />
-          ) : error ? (
-            <Message variant="alert-danger">{error}</Message>
           ) : (
             <div className="row">
               {/* Products */}
-              {products.map((product) => (
-                <Product product={product} key={product._id} />
-              ))}
+              {news && news.length > 0 && news.map((product) => <SinglePost />)}
             </div>
           )}
 
@@ -113,4 +114,4 @@ const MainProducts = () => {
   );
 };
 
-export default MainProducts;
+export default MainLists;

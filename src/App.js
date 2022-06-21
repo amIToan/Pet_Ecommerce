@@ -24,12 +24,13 @@ import { getCompanyInfo } from "./Redux/Actions/CompanyAction";
 import { getListOfCate } from "./Redux/Actions/CategoryAction";
 import { listUser } from "./Redux/Actions/userActions";
 import ModifiedBanner from "./screens/ModifiedBanner";
+import NewsScreen from "./screens/NewsScreen";
+import NewsEditAndAddScreen from "./screens/NewsEditAndAddScreen";
 function App() {
   document.title = "Admin Page";
   const dispatch = useDispatch();
 
-  const { userLogin
-  } = useSelector((state) => state);
+  const { userLogin } = useSelector((state) => state);
   const { userInfo } = userLogin;
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
@@ -62,6 +63,13 @@ function App() {
           <PrivateRouter path="/addproduct" component={AddProduct} />
           <PrivateRouter path="/users" component={UsersScreen} />
           <PrivateRouter path="/banner" component={BannerScreen} exact />
+          <PrivateRouter path="/news" component={NewsScreen} exact />
+          <PrivateRouter
+            path="/addnews"
+            component={NewsEditAndAddScreen}
+            exact
+          />
+          <PrivateRouter path="/news/:id/" component={NewsEditAndAddScreen} />
           <PrivateRouter path="/banner/:bannerId" component={ModifiedBanner} />
           <PrivateRouter
             path="/product/:id/edit"

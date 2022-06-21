@@ -1,30 +1,11 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
-import { getBannerLists } from "../Redux/Actions/BannerActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { GET_BANNER_RESET } from "../Redux/Constants/BannerConstants";
-import Loading from "./LoadingError/Loading";
-import Message from "./LoadingError/Error";
 import { ImageURL } from "../Helps";
-const BannerComponent = () => {
-  const dispatch = useDispatch();
-  const { loading, bannerInfo, error } = useSelector(
-    (state) => state.BannerList
-  );
-  useEffect(() => {
-    dispatch(getBannerLists());
-    return () => {
-      dispatch({ type: GET_BANNER_RESET });
-    };
-  }, [dispatch]);
-  console.log(bannerInfo);
+const BannerComponent = ({ banners }) => {
   return (
     <div className="container-fluid">
       <div className="container">
         <table className="table">
-          {loading && <Loading />}
-          {error && <Message />}
           <thead>
             <tr>
               <th scope="col">Id</th>
@@ -35,8 +16,8 @@ const BannerComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {bannerInfo?.length > 0 ? (
-              bannerInfo.map((item) => (
+            {banners?.length > 0 ? (
+              banners.map((item) => (
                 <tr key={item._id}>
                   <td>{item._id}</td>
                   <td>

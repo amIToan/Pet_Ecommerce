@@ -15,7 +15,6 @@ import {
   orderUpdateReducer,
 } from "./Reducers/OrderReducres";
 import {
-  companyCreateUpdateReducer,
   getCompanyReducer,
   UpdateCompanyInfo,
 } from "./Reducers/CompnayReducers";
@@ -24,11 +23,14 @@ import {
   createCategory,
   updateCategory,
 } from "./Reducers/CategorReducer";
+import { updateBannerInfo } from "./Reducers/BannerReducer";
 import {
-  bannerInfoReducer,
-  updateBannerInfo,
-  bannerInfoDetail,
-} from "./Reducers/BannerReducer";
+  newsListReducer,
+  newsCreateReducer,
+  newsEditReducer,
+  newsUpdateReducer,
+  newsDeleteReducer,
+} from "./Reducers/NewsReducer";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userList: userListReducer,
@@ -46,9 +48,12 @@ const reducer = combineReducers({
   CategoryList: getAllCategory,
   createdCategory: createCategory,
   updatedCategory: updateCategory,
-  BannerList: bannerInfoReducer,
-  BannerDetail: bannerInfoDetail,
   updatedBanner: updateBannerInfo,
+  newsList: newsListReducer,
+  newsCreate: newsCreateReducer,
+  newUpdate: newsUpdateReducer,
+  newEdit: newsEditReducer,
+  newsDeletion: newsDeleteReducer,
 });
 
 // login

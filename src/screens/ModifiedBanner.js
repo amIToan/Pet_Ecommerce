@@ -1,14 +1,15 @@
 import Sidebar from "./../components/sidebar";
 import Header from "./../components/Header";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import Toast from "../components/LoadingError/Toast";
 import { toast } from "react-toastify";
 import Message from "../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 import { DropzoneArea } from "material-ui-dropzone";
 import { useDispatch, useSelector } from "react-redux";
-import { getBannerDetail, updateBanner } from "../Redux/Actions/BannerActions";
+import { updateBanner } from "../Redux/Actions/BannerActions";
+import { publicRequest } from "../Helps";
 import {
   GET_BANNER_DETAIL_RESET,
   UPDATE_BANNER_RESET,
@@ -21,12 +22,12 @@ const ToastObjects = {
   autoClose: 2000,
 };
 const ModifiedBanner = ({ match }) => {
+  const {
+    userLogin: { userInfo },
+  } = useSelector((state) => state);
   const dispatch = useDispatch();
   const bannerId = match.params.bannerId;
-  const { loading, bannerInfo, error } = useSelector(
-    (state) => state.BannerDetail
-  );
-  const [banner, setBanner] = useState({});
+  const [banner, setBanner] = useState(null);
   const [image, setImage] = useState([]);
   const {
     loading: loadingUpdate,
@@ -40,19 +41,27 @@ const ModifiedBanner = ({ match }) => {
       return newLinkImages;
     }
   }
+  console.log("render");
   useEffect(() => {
-    dispatch(getBannerDetail(bannerId));
+    async function fetchingDetailsBanner() {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const { data } = await publicRequest.get(
+        `/api/banner/${bannerId}`,
+        config
+      );
+      data && setBanner(data);
+    }
+    fetchingDetailsBanner();
     if (updatedBannerInfo) {
       toast.success("You have updated Banner successfully", ToastObjects);
       dispatch({ type: UPDATE_BANNER_RESET });
     }
-    return () => {
-      dispatch({ type: GET_BANNER_DETAIL_RESET });
-    };
+    return () => setBanner(null);
   }, [updatedBannerInfo, dispatch, bannerId]);
-  useEffect(() => {
-    setBanner({ ...bannerInfo });
-  }, [bannerInfo]);
   const handleUpdate = (e) => {
     e.preventDefault();
     const getFormData = (object) =>
@@ -92,10 +101,12 @@ const ModifiedBanner = ({ match }) => {
               <div className="col-xl-8 col-lg-8">
                 <div className="card mb-4 shadow-sm">
                   <div className="card-body">
-                    {(error || errorUpdate) && (
-                      <Message variant="alert-danger">{error}</Message>
+                    {(!banner || errorUpdate) && (
+                      <Message variant="alert-danger">
+                        {"There' some error!!!" || errorUpdate}
+                      </Message>
                     )}
-                    {(loading || loadingUpdate) && <Loading />}
+                    {(!banner || loadingUpdate) && <Loading />}
                     <div className="mb-4">
                       <label htmlFor="bannerName" className="form-label">
                         Title
@@ -105,7 +116,7 @@ const ModifiedBanner = ({ match }) => {
                         placeholder="Type here"
                         className="form-control"
                         name="bannerName"
-                        value={banner.bannerName ? banner.bannerName : ""}
+                        value={banner?.bannerName ? banner.bannerName : ""}
                         required
                         onChange={(e) =>
                           setBanner({
@@ -133,13 +144,13 @@ const ModifiedBanner = ({ match }) => {
                       >
                         <option
                           value="1"
-                          selected={bannerInfo?.bannerPosition === 1 && true}
+                          selected={banner?.bannerPosition === 1 && true}
                         >
                           Đầu trang chủ
                         </option>
                         <option
                           value="2"
-                          selected={bannerInfo?.bannerPosition === 2 && true}
+                          selected={banner?.bannerPosition === 2 && true}
                         >
                           {" "}
                           Giữa trang
@@ -150,7 +161,7 @@ const ModifiedBanner = ({ match }) => {
                       <label htmlFor="bannerPosition" className="form-label">
                         Banner Images
                       </label>
-                      {bannerInfo?.bannerUrlLink && (
+                      {banner?.bannerUrlLink && (
                         <DropzoneArea
                           clearOnUnmount={true}
                           acceptedFiles={["image/*"]}
@@ -159,9 +170,7 @@ const ModifiedBanner = ({ match }) => {
                           previewGridClasses={{
                             item: "Mui-3",
                           }}
-                          initialFiles={changeLinkImage(
-                            bannerInfo?.bannerUrlLink
-                          )}
+                          initialFiles={changeLinkImage(banner?.bannerUrlLink)}
                           name="uploadToan"
                           onChange={(files) => {
                             console.log(files);
@@ -179,7 +188,7 @@ const ModifiedBanner = ({ match }) => {
                           }}
                         />
                       )}
-                      {!bannerInfo?.bannerUrlLink && (
+                      {!banner?.bannerUrlLink && (
                         <DropzoneArea
                           clearOnUnmount={true}
                           acceptedFiles={["image/*"]}
@@ -217,4 +226,4 @@ const ModifiedBanner = ({ match }) => {
   );
 };
 
-export default ModifiedBanner;
+export default memo(ModifiedBanner);

@@ -1,16 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../../Redux/Actions/ProductActions";
-import { ImageURL } from "../../Helps";
-import { Currency } from "../../Helps";
-const Product = (props) => {
-  const { product } = props;
+import { deleteNEWS } from "../../Redux/Actions/NewsAction";
+const ImageURL = "http://admin.giai.vn:5000/Images/News";
+const SinglePost = (props) => {
+  const { Post } = props;
   const dispatch = useDispatch();
-
   const deletehandler = (id) => {
     if (window.confirm("Are you sure??")) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteNEWS(id));
     }
   };
 
@@ -19,23 +17,22 @@ const Product = (props) => {
       <div className="col-md-6 col-sm-6 col-lg-3 mb-5">
         <div className="card card-product-grid shadow-sm">
           <Link to="#" className="img-wrap">
-            <img src={`${ImageURL}${product.image[0]}`} alt="Product" />
+            <img src={`${ImageURL}${Post.image[0]}`} alt="Product" />
           </Link>
           <div className="info-wrap">
             <Link to="#" className="title text-truncate">
-              {product.name}
+              {Post.name}
             </Link>
-            <div className="price mb-2">{Currency(product.price)}</div>
             <div className="row">
               <Link
-                to={`/product/${product._id}/edit`}
+                to={`/product/${Post._id}/edit`}
                 className="btn btn-sm btn-outline-success p-2 pb-3 col-md-6"
               >
                 <i className="fas fa-pen"></i>
               </Link>
               <Link
                 to="#"
-                onClick={() => deletehandler(product._id)}
+                onClick={() => deletehandler(Post._id)}
                 className="btn btn-sm btn-outline-danger p-2 pb-3 col-md-6"
               >
                 <i className="fas fa-trash-alt"></i>
@@ -47,5 +44,4 @@ const Product = (props) => {
     </>
   );
 };
-
-export default Product;
+export default SinglePost;
