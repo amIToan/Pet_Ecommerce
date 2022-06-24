@@ -1,0 +1,137 @@
+###import users
+POST http://localhost:5000/api/import/user
+###import products
+POST http://localhost:5000/api/import/products
+###login
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "email" : "NganChuShop@example.com",
+    "password": "123456"
+}
+###Register
+POST http://localhost:5000/api/users/register
+Content-Type: application/json
+
+{
+    "name": "amIToan11111111111111",
+    "email" : "toanadmin111111111@example.com",
+    "password": "123456"
+}
+###Get Profile
+GET http://localhost:5000/api/users/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+###Get out
+POST  http://localhost:5000/api/users/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmNiMDUyMTEyMmEwOGY2ZWYxODgzMiIsImlhdCI6MTY1MTUwNjkzNCwiZXhwIjoxNjU0MDk4OTM0fQ.NxhccK5BU9r3DsmMFzk5nL2ZM_GxiDlw3tim0LACTdc
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmNiMDUyMTEyMmEwOGY2ZWYxODgzMiIsImlhdCI6MTY1MTU0NjI2NywiZXhwIjoxNjU0MTM4MjY3fQ.h_nIWJDBBTk2FWnlxKXpa7h7KHlg7XdCXx_qf2Nr8l0
+###Cokiee
+POST  http://localhost:5000/api/users/refresh
+
+###Get all Profile users
+GET http://localhost:5000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+###Creat category
+POST  http://localhost:5000/api/categories/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJlZDU5ODFlYWFiYjI4ZTA5NjRjZiIsImlhdCI6MTY1MTE0MDY0MywiZXhwIjoxNjUzNzMyNjQzfQ.5uX8W2tqlo0Rq2yxNtMZSecdXtCycWGOlXrVoNfad_s
+
+{
+    "title" : "Keo chó",
+    "ImageURl" : "https://www.thesprucepets.com/thmb/_-oc7x5mb5tQ6XvDZIqlrxdUqco=/941x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/GettyImages-175928868-120f47906f4849969fcdab28e2e4f494.jpg",
+    "ParentId" : "625cf8bc38405118f1f40e2b"
+}
+###get all categories
+GET   http://localhost:5000/api/categories/get
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJlZDU5ODFlYWFiYjI4ZTA5NjRjZiIsImlhdCI6MTY1MTE1OTU2OCwiZXhwIjoxNjUzNzUxNTY4fQ.rn5yhfxiqjg-VWxgznqAz5BxXe_rZNQnqVa3VUQZjvI
+###PUT category
+PUT    http://localhost:5000/api/categories/625cf1f17db160820df3f469
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+{
+    "title": "Products"
+}
+
+###delete category
+DELETE     http://localhost:5000/api/categories/:id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+###Get all Products
+GET http://localhost:5000/api/products/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+###Get Products by ID
+GET http://localhost:5000/api/products/625cfdecd4b4ce3c3e70b59d
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+###POST ReView by ID
+POST  http://localhost:5000/api/products/625cfdecd4b4ce3c3e70b59d/review
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+Content-Type: application/json
+
+{
+    "rating": "4",
+    "comment": "Very Good!"
+}
+### Create Product
+POST http://localhost:5000/api/products/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+Content-Type: application/json
+
+{
+    "name": "Thực phẩm cho chó",
+    "price": "100",
+    "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,",
+    "categories": "[Products]",
+    "image": "https://dictionary.cambridge.org/vi/rss/images/rebirding.jpg",
+    "countInStock": "4"
+}
+### Modified Product
+PUT  http://localhost:5000/api/products/625d22187348efbd4f6e80c7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+Content-Type: application/json
+
+{
+    "size": ["M","L","X"]
+}
+
+### Delete Product
+DELETE   http://localhost:5000/api/products/625d23a77348efbd4f6e80d1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+Content-Type: application/json
+
+### Create News
+POST http://localhost:5000/api/news/create_posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJlZDU5ODFlYWFiYjI4ZTA5NjRjZiIsImlhdCI6MTY1MDI3NjA5NCwiZXhwIjoxNjUyODY4MDk0fQ.VwgalCdg6SMA-eSk9EUHKbNz0T20UlSaKbR4He_ub1U
+Content-Type: application/json
+
+{
+    "title" : "Cách nuôi gà con",
+    "description" : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
+    "categories": ["News"]
+}
+
+### Get Order
+GET http://localhost:5000/api/orders/62749abeebd2dcc07bc919cd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNmNiMDUyMTEyMmEwOGY2ZWYxODgzMiIsImlhdCI6MTY1MTgxMjcyOCwiZXhwIjoxNjUyMDcxOTI4fQ.ATlgAdJ7qkNpauPv54wvWAbOJ6OEPePs7NFxo-ZHaeI
+
+
+### get All News
+GET  http://localhost:5000/api/news/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+
+### get user'sNews (admin)
+GET  http://localhost:5000/api/news/user/625bd66c29d34d966aae9118
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJkNjZjMjlkMzRkOTY2YWFlOTExOCIsImlhdCI6MTY1MDI1MTE4MSwiZXhwIjoxNjUyODQzMTgxfQ.epOzlyZO9s_MgHdaeZ7Aex809PQPYYjVVLEYWUQGFRs
+### get user'sNews (user)
+GET  http://localhost:5000/api/news/user/625bed5981eaabb28e0964cf
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJlZDU5ODFlYWFiYjI4ZTA5NjRjZiIsImlhdCI6MTY1MDI3NjA5NCwiZXhwIjoxNjUyODY4MDk0fQ.VwgalCdg6SMA-eSk9EUHKbNz0T20UlSaKbR4He_ub1U
+### DELETE user'sNews (user)
+DELETE   http://localhost:5000/api/news/625d3e0a6e170da50fd13a20
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWJlZDU5ODFlYWFiYjI4ZTA5NjRjZiIsImlhdCI6MTY1MDI3NjA5NCwiZXhwIjoxNjUyODY4MDk0fQ.VwgalCdg6SMA-eSk9EUHKbNz0T20UlSaKbR4He_ub1U
+
