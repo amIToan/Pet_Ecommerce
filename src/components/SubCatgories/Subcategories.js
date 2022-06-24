@@ -31,14 +31,13 @@ const Subcategories = () => {
     //return item.children?.length > 0 ? item.children.flat(Infinity) :
     FetchingSubCats();
   }, []);
-  console.log(subCatArr);
   return (
     <div className="container-fluid">
       <div className="container">
         <div className="row align-items-center justify-content-center">
           <div className="col-12">
             <Hometitle className="app_subcategory_title">
-              Sản phẩm của Pet Shop
+              Sản phẩm của Giai Shop
             </Hometitle>
           </div>
           {subCatArr?.length > 0 &&

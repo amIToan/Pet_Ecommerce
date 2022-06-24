@@ -1,6 +1,23 @@
 import "./News.scss";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useState, useEffect } from "react";
+import publicRequest, { newsImageURL } from "../../RequestMethos";
+import moment from "moment";
+import { Link } from "react-router-dom";
 const News = () => {
+  const [state, setState] = useState();
+  useEffect(() => {
+    async function fetchingState() {
+      const { data } = await publicRequest.get(
+        `/news/all/?pageSize=12&pageNumber=1`
+      );
+      data.allPosts && setState(data.allPosts.slice(0, 4));
+    }
+    fetchingState();
+    return () => {
+      setState(null);
+    };
+  }, []);
   return (
     <div className="app_News_container mb-5">
       <div className="container">
@@ -8,33 +25,39 @@ const News = () => {
           <h2>Tin tức</h2>
         </div>
         <div className="row">
-          <div className="col-12 col-md-3">
-            <h3 className="app_News_subHeadline">
-              MÁCH BẠN CÁCH CHỌN ĐỒ BƠI HỢP MỐT
-            </h3>
-            <img
-              src="https://bizweb.dktcdn.net/thumb/large/100/147/060/articles/untitled-25.jpg?v=1478148164403"
-              alt="Mo ta san pham"
-              className="d-block img-fluid"
-            />
-            <div className="app_News_shortDesc">
-              Việc lựa chọn đồ bơi dựa vào dáng người không chỉ giúp bạn tôn lên
-              những nét đẹp sẵn có, mà còn che giấu những khiếm khuyết của cơ
-              thể, để bạn tự tin khoe dáng ngày hè. ...
-            </div>
-            <div className="app_News_Date">
-              <CalendarMonthIcon />
-              03/11/2016
-            </div>
-            <div className="app_News_forMore">
-              <a href="fsdfsdffdf.com" alt="Khong cos">
-                Xem thêm
-              </a>
-            </div>
-          </div>
-          <div className="col-12 col-md-3"></div>
-          <div className="col-12 col-md-3"></div>
-          <div className="col-12 col-md-3"></div>
+          {state && state?.length > 0 ? (
+            <>
+              {state.map((item) => (
+                <>
+                  <div className="col-12 col-md-3">
+                    <h3 className="app_News_subHeadline">{item?.title}</h3>
+                    <img
+                      src={`${newsImageURL}/${item?.image[0]}`}
+                      alt="Mo ta san pham"
+                      className="d-block img-fluid"
+                    />
+                    <div
+                      className="app_News_shortDesc"
+                      dangerouslySetInnerHTML={{
+                        __html: item.description.slice(0, 150) + "...",
+                      }}
+                    />
+                    <div className="app_News_Date">
+                      <CalendarMonthIcon />
+                      {moment(item.createdAt).calendar()}
+                    </div>
+                    <div className="app_News_forMore">
+                      <Link to={"#"}>Xem thêm</Link>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </>
+          ) : (
+            <>
+              <h3 className="app_News_subHeadline">No data ...</h3>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -22,10 +22,8 @@ async function fetchingData(keyword = "", pageNumber) {
   return data;
 }
 const Search = () => {
-  console.log("chayj may lan");
   const dispatch = useDispatch();
   const { keyword, pageNumber } = useParams();
-  // const [searchData, setSearchData] = useState(null);
   const { isLoading, isError, data, isFetching, refetch } = useQuery(
     ["pagination", keyword, pageNumber],
     () => fetchingData(keyword, pageNumber),

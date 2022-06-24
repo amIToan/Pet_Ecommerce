@@ -62,7 +62,10 @@ function DetailPage() {
             <div className="col-12 col-md-6">
               <div className="app_productDetail_Content">
                 <h3>{product?.name}</h3>
-                <p>{product?.description}</p>
+                <p
+                  className="position-relative"
+                  dangerouslySetInnerHTML={{ __html: product?.description }}
+                />
                 <div className="app_productDetail_count w-75">
                   <div className="app_productDetail_flexBox d-flex justify-content-between align-items-center">
                     <h6>Price</h6>

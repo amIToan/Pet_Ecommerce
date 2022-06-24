@@ -11,8 +11,19 @@ const Cart = () => {
   const [quantity, setQuantity] = useState(1);
   const [totalPrice, setTotalPrice] = useState(0);
   const handleQuantityChange = (e, item) => {
-    setQuantity(e.target.value);
-    dispatch(addToCart({ ...item, quantity: parseInt(e.target.value) }));
+    const max = +e.target.getAttribute("max");
+    if (e.target.value <= max) {
+      setQuantity(e.target.value);
+      dispatch(
+        addToCart({
+          ...item,
+          quantity: parseInt(e.target.value ? e.target.value : 1),
+        })
+      );
+    } else {
+      alert(`Number too big! Max is ${max}`);
+      setQuantity(1);
+    }
   };
   useEffect(() => {
     const totalPrice =
@@ -117,17 +128,6 @@ const Cart = () => {
               </div>
             )}
           </div>
-
-          {/* <div className="cart-buttons d-flex align-items-center row">
-            <Link to="/" className="col-md-6 ">
-              <button>Continue To Shopping</button>
-            </Link>
-            {TotalMoney > 0 && (
-              <div className="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-                <button onClick={checkOutHandler}>Checkout</button>
-              </div>
-            )}
-          </div> */}
         </>
       ) : (
         <div className=" alert alert-info text-center mt-3">

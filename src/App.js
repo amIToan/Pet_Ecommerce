@@ -26,36 +26,8 @@ import Loading from "./components/Error.Loading/Loading";
 import Message from "./components/Error.Loading/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductAPI } from "./redux/ApiRedux/apiRequest";
-import { useInfiniteQuery } from "react-query";
-const fetchRepositories = async (page = 1) => {
-  const response = await fetch(
-    `https://api.github.com/search/repositories?q=topic:reactjs&per_page=30&page=${page}`
-  );
-  return response.json();
-};
+import Newspage from "./Pages/NewsPage/Newspage";
 function App() {
-  const {
-    data,
-    hasNextPage,
-    fetchNextPage,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-  } = useInfiniteQuery(
-    "repositories",
-    ({ pageParam = 1 }) => fetchRepositories(pageParam),
-    {
-      refetchOnWindowFocus: false,
-      keepPreviousData: true,
-      cacheTime: 60 * 5 * 1000,
-      staleTime: 300000,
-      getNextPageParam: (lastPage, allPages) => {
-        const maxPages = lastPage.total_count / 30;
-        const nextPage = allPages.length + 1;
-        return nextPage <= maxPages ? nextPage : undefined;
-      },
-    }
-  );
-  console.log(isFetchingNextPage, isFetchingPreviousPage);
   const dispatch = useDispatch();
   useEffect(() => {
     getCompanyInfo(dispatch);
@@ -65,26 +37,6 @@ function App() {
   const { loading, companyInfo, error } = useSelector((state) => state.Company);
   document.title =
     (companyInfo && companyInfo[0]?.pageTitle.pageTitle) || document.title;
-  useEffect(() => {
-    let fetching = false;
-    const onScroll = async (event) => {
-      const { scrollHeight, scrollTop, clientHeight } =
-        event.target.scrollingElement;
-      console.log(scrollHeight - scrollTop, clientHeight);
-      if (!fetching && scrollHeight - scrollTop <= clientHeight) {
-        console.log("true");
-        fetching = true;
-        if (hasNextPage) await fetchNextPage();
-        fetching = false;
-      }
-    };
-    document.addEventListener("scroll", onScroll);
-    return () => {
-      document.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-
-  // console.log(data);
   return (
     <BrowserRouter>
       {loading && <Loading />}
@@ -99,6 +51,8 @@ function App() {
         </Route>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/details/:productId" element={<DetailPage />} />
+        <Route path="/news/:pageNumber" element={<Newspage />} />
+        <Route path="/news/:newsId" element={<DetailPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<PrivateRouter />}>

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 const Pagination = ({ page, pages, keyword = "" }) => {
-  console.log(page, pages, keyword);
   return (
     pages > 1 && (
       <nav>
