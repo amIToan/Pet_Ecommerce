@@ -9,47 +9,12 @@ import {
   NEWS_EDIT_RESET,
   NEWS_EDIT_START,
   NEWS_EDIT_SUCCESS,
-  NEWS_LIST_FAIL,
-  NEWS_LIST_REQUEST,
-  NEWS_LIST_SUCCESS,
   NEWS_UPDATE_FAIL,
   NEWS_UPDATE_REQUEST,
   NEWS_UPDATE_RESET,
   NEWS_UPDATE_SUCCESS,
 } from "../Constants/NewsConstant";
 import { logout } from "./userActions";
-
-export const listNews = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: NEWS_LIST_REQUEST });
-
-    const {
-      userLogin: { userInfo },
-    } = getState();
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-
-    const { data } = await publicRequest.get(`/api/news/all`, config);
-
-    dispatch({ type: NEWS_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
-    dispatch({
-      type: NEWS_LIST_FAIL,
-      payload: message,
-    });
-  }
-};
 
 // DELETE news
 export const deleteNEWS = (id) => async (dispatch, getState) => {
@@ -101,7 +66,7 @@ export const createNEWs = (news) => async (dispatch, getState) => {
     };
 
     const { data } = await publicRequest.post(
-      `/api//create_posts`,
+      `/api/news/create_posts`,
       news,
       config
     );
@@ -122,26 +87,6 @@ export const createNEWs = (news) => async (dispatch, getState) => {
   }
 };
 
-// Get news followID
-export const getNewsByID = (id) => async (dispatch, getState) => {
-  dispatch({ type: NEWS_EDIT_START });
-  try {
-    const { data } = await publicRequest.get(`/api/news/${id}`);
-    data && dispatch({ type: NEWS_EDIT_SUCCESS, payload: data });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
-    dispatch({
-      type: NEWS_EDIT_RESET,
-      payload: message,
-    });
-  }
-};
 // UPDATE news
 export const updateNews = (id, news) => async (dispatch, getState) => {
   try {

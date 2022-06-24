@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-
 const Sidebar = () => {
   return (
     <div>
@@ -114,6 +113,16 @@ const Sidebar = () => {
               >
                 <i className="icon fas fa-usd-circle"></i>
                 <span className="text">Banner</span>
+              </NavLink>
+            </li>
+            <li className="menu-item">
+              <NavLink
+                activeClassName="active"
+                className="menu-link "
+                to="/news"
+              >
+                <i className="icon fas fa-newspaper"></i>
+                <span className="text">News</span>
               </NavLink>
             </li>
           </ul>

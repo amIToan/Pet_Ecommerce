@@ -7,13 +7,11 @@ import { Currency } from "../../Helps";
 const Product = (props) => {
   const { product } = props;
   const dispatch = useDispatch();
-
   const deletehandler = (id) => {
     if (window.confirm("Are you sure??")) {
       dispatch(deleteProduct(id));
     }
   };
-
   return (
     <>
       <div className="col-md-6 col-sm-6 col-lg-3 mb-5">

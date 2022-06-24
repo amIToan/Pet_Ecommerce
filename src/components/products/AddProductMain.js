@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { PRODUCT_CREATE_RESET } from "../../Redux/Constants/ProductConstants";
 import { createProduct } from "./../../Redux/Actions/ProductActions";
 import Toast from "../LoadingError/Toast";
@@ -12,12 +11,6 @@ import EditorToolbar, { modules, formats } from "../QuillEditor/EditorToolbar";
 import "./TextEditor.css";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-const ToastObjects = {
-  pauseOnFocusLoss: false,
-  draggable: false,
-  pauseOnHover: false,
-  autoClose: 2000,
-};
 const AddProductMain = () => {
   const [newProduct, setNewProduct] = useState({
     description: "",
@@ -54,7 +47,7 @@ const AddProductMain = () => {
 
   useEffect(() => {
     if (product) {
-      toast.success("Product Added", ToastObjects);
+      alert("Product Added successfully!!!");
       dispatch({ type: PRODUCT_CREATE_RESET });
       setNewProduct({});
       setCate({});
@@ -79,7 +72,6 @@ const AddProductMain = () => {
   };
   return (
     <>
-      <Toast />
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">

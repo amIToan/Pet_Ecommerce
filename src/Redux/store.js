@@ -49,10 +49,8 @@ const reducer = combineReducers({
   createdCategory: createCategory,
   updatedCategory: updateCategory,
   updatedBanner: updateBannerInfo,
-  newsList: newsListReducer,
   newsCreate: newsCreateReducer,
   newUpdate: newsUpdateReducer,
-  newEdit: newsEditReducer,
   newsDeletion: newsDeleteReducer,
 });
 

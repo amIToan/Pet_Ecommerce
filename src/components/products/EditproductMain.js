@@ -1,13 +1,8 @@
 import { useState, useEffect, forwardRef } from "react";
-import Toast from "./../LoadingError/Toast";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "./../../Redux/Actions/ProductActions";
-import {
-  PRODUCT_RESET,
-  PRODUCT_UPDATE_RESET,
-} from "../../Redux/Constants/ProductConstants";
-import { toast } from "react-toastify";
+import { PRODUCT_UPDATE_RESET } from "../../Redux/Constants/ProductConstants";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
 import { DropzoneArea } from "material-ui-dropzone";
@@ -16,13 +11,6 @@ import EditorToolbar, { modules, formats } from "../QuillEditor/EditorToolbar";
 import "./TextEditor.css";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-const ToastObjects = {
-  pauseOnFocusLoss: false,
-  draggable: false,
-  pauseOnHover: false,
-  autoClose: 2000,
-};
-
 const EditProductMain = ({ productId, product }, ref) => {
   const dispatch = useDispatch();
   // get categories
@@ -48,7 +36,6 @@ const EditProductMain = ({ productId, product }, ref) => {
   }
   getIdOfCate(listOfCategory);
   // enddddddddd
-  const productEdit = useSelector((state) => state.productEdit);
   const [assginPro, setAssignPro] = useState({});
   function changeLinkImage(params) {
     if (params?.length > 0) {
@@ -67,7 +54,7 @@ const EditProductMain = ({ productId, product }, ref) => {
   useEffect(() => {
     //
     if (successUpdate) {
-      alert("You've updated successfully!!!", ToastObjects);
+      alert("You've updated successfully!!!");
       dispatch({ type: PRODUCT_UPDATE_RESET });
     }
     return () => {
@@ -110,7 +97,6 @@ const EditProductMain = ({ productId, product }, ref) => {
   };
   return (
     <>
-      <Toast />
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
