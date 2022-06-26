@@ -71,7 +71,7 @@ function ItemscategoryCo({ data }) {
         <button
           type="button"
           className="d-block mx-auto btn btn-info w-25 text-white fw-bolder mt-5"
-          style={{ background: "#6c78b4" }}
+          style={{ background: "#262626" }}
           onClick={handleLoadMore}
         >
           Load More ...

@@ -53,7 +53,6 @@ const Slider = () => {
   const newBanner =
     Banner?.length > 0 && Banner.filter((item) => item.bannerPosition === 1);
   const [slideIndex, setSlideIndex] = useState(0);
-  console.log(slideIndex);
   const handleClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(

@@ -32,6 +32,12 @@
       &:hover {
         background: #6c78b4;
         color: #fff;
+        a {
+          color: #fff !important;
+        }
+        svg {
+          color: #fff;
+        }
       }
     }
   }

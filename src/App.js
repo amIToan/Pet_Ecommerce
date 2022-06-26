@@ -27,6 +27,7 @@ import Message from "./components/Error.Loading/Error";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductAPI } from "./redux/ApiRedux/apiRequest";
 import Newspage from "./Pages/NewsPage/Newspage";
+import NewsDetails from "./Pages/NewsPage/NewsDetails";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -38,33 +39,37 @@ function App() {
   document.title =
     (companyInfo && companyInfo[0]?.pageTitle.pageTitle) || document.title;
   return (
-    <BrowserRouter>
-      {loading && <Loading />}
-      {error && <Message>{error}</Message>}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search/:keyword" element={<Search />} />
-        <Route path="/page/:pageNumber" element={<Search />} />
-        <Route path="/search/:keyword/page/:pageNumber" element={<Search />} />
-        <Route path="/products" element={<Category />}>
-          <Route path=":id" element={<Category />} />
-        </Route>
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/details/:productId" element={<DetailPage />} />
-        <Route path="/news/:pageNumber" element={<Newspage />} />
-        <Route path="/news/:newsId" element={<DetailPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<PrivateRouter />}>
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/placeorder" element={<OrderPage />} />
-          <Route path="/orders/:orderId" element={<UserOrderDetails />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        {loading && <Loading />}
+        {error && <Message>{error}</Message>}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search/:keyword" element={<Search />} />
+          <Route path="/page/:pageNumber" element={<Search />} />
+          <Route path="/search/:keyword/page/:pageNumber" element={<Search />} />
+          <Route path="/products" element={<Category />}>
+            <Route path=":id" element={<Category />} />
+          </Route>
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/details/:productId" element={<DetailPage />} />
+          <Route path="/news" element={<Newspage />} >
+            <Route path=":pageNumber" element={<Newspage />}></Route>
+          </Route>
+          <Route path="/news/details/:newsId" element={<NewsDetails />}></Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRouter />}>
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/placeorder" element={<OrderPage />} />
+            <Route path="/orders/:orderId" element={<UserOrderDetails />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -62,7 +62,6 @@ const RelatedProduct = ({ originProduct }) => {
           }
         }
       });
-      console.log(newRePros);
       setRelatePros(newRePros);
     }
     return () => {

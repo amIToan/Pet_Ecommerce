@@ -1,8 +1,9 @@
+$base-color: #262626;
 .app_Category_leftbar_container {
   background: #f5f5f5;
   margin-bottom: 35px;
   .app_Category_leftbar_title {
-    background: none repeat scroll 0 0 #6c78b4;
+    background: none repeat scroll 0 0 $base-color;
     color: #fff;
     font-family: "Open Sans";
     font-size: 14px;

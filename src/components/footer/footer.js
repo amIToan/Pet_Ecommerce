@@ -17,9 +17,8 @@ function Footer() {
               <div className="app_footer_top_logo">
                 <Link to={"/"}>
                   <img
-                    src={`${ImageURL}/${
-                      companyInfo && companyInfo[0]?.logoHeader
-                    }`}
+                    src={`${ImageURL}/${companyInfo && companyInfo[0]?.logoHeader
+                      }`}
                     alt="Logo"
                     className="img-fluid d-block bg-light"
                   />
@@ -114,50 +113,50 @@ function Footer() {
             <div className="col-xs-12 col-sm-6">
               <div className="app_footer_middle_paymentAccess">
                 <img
-                  src="//bizweb.dktcdn.net/100/147/060/themes/195230/assets/payment-1.png?1632380301806"
+                  src={`/payment-1.webp`}
                   alt="Pet Shop"
                 />
                 <img
-                  src="//bizweb.dktcdn.net/100/147/060/themes/195230/assets/payment-2.png?1632380301806"
+                  src="/payment-2.webp"
                   alt="Pet Shop"
                 />
                 <img
-                  src="//bizweb.dktcdn.net/100/147/060/themes/195230/assets/payment-3.png?1632380301806"
+                  src="/payment-3.webp"
                   alt="Pet Shop"
                 />
                 <img
-                  src="//bizweb.dktcdn.net/100/147/060/themes/195230/assets/payment-4.png?1632380301806"
+                  src="/payment-4.webp"
                   alt="Pet Shop"
                 />
               </div>
             </div>
             <div className="col-xs-12 col-sm-6">
               <div className="app_footer_middle_socials ">
-                <Link
-                  to={`${companyInfo && companyInfo[0].Facebook}`}
+                <a
+                  href={`${companyInfo && companyInfo[0].Facebook}`}
                   className="d-inline-block icon"
                 >
                   <FacebookIcon />
-                </Link>
-                <Link
-                  to={`${companyInfo && companyInfo[0].Instagram}`}
+                </a>
+                <a
+                  href={`${companyInfo && companyInfo[0].Instagram}`}
                   className="d-inline-block icon"
                 >
                   <TwitterIcon />
-                </Link>
-                <Link
-                  to={`${companyInfo && companyInfo[0].Youtube}`}
+                </a>
+                <a
+                  href={`${companyInfo && companyInfo[0].Youtube}`}
                   className="d-inline-block icon"
                 >
                   {" "}
                   <GoogleIcon />
-                </Link>
-                <Link
-                  to={`${companyInfo && companyInfo[0].Facebook}`}
+                </a>
+                <a
+                  href={`${companyInfo && companyInfo[0].Facebook}`}
                   className="d-inline-block icon"
                 >
                   <PinterestIcon />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -165,10 +164,9 @@ function Footer() {
       </div>
       <div className="app_footer_bottom">
         <div className="container">
-          <p>
-            © 2016-2020 CÔNG TY TNHH MAY MẶC THĂNG LONG | Thiết Kế & Nội Dung
-            bởi PETSHOP VIỆT NAM.
-          </p>
+          <span>
+            © 2016-2022  CÔNG TY CỔ PHẦN THƯƠNG MẠI GIAI.VN
+          </span>
         </div>
       </div>
     </div>

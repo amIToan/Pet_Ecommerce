@@ -7,7 +7,6 @@ const Search = () => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const debouncedValue = useDebounce(keyword, 200);
-  console.log(debouncedValue);
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {

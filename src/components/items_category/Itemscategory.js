@@ -9,7 +9,6 @@ function Itemscategory({ id }) {
   const productLists = useSelector((state) => state.Product.ProductList);
   const [grid, setGrid] = useState(true);
   const [newArray, setNewArray] = useState(null);
-  console.log(productLists);
   useEffect(() => {
     if (id && productLists?.length > 0) {
       const cateProArr = [];

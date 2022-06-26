@@ -105,9 +105,8 @@ const Navbar = () => {
             <div className="col-12 col-md-6 app_navbar_logo">
               <Link to={"/"}>
                 <img
-                  src={`${ImageURL}/${
-                    companyInfo && companyInfo[0]?.logoHeader
-                  }`}
+                  src={`${ImageURL}/${companyInfo && companyInfo[0]?.logoHeader
+                    }`}
                   alt="Logo"
                 />
               </Link>
@@ -117,9 +116,12 @@ const Navbar = () => {
                 <Link to={"/"}>Trang chủ</Link>
                 {category?.length > 0 &&
                   category.map((item, index) => (
-                    <Link to={`/${item.categoryName}`} key={index}>
-                      {item.categoryName}
-                    </Link>
+                    <>
+                      <Link to={`/${item.categoryName}`} key={index}>
+                        {item.categoryName}
+                      </Link>
+                    </>
+
                   ))}
               </div>
             </div>
