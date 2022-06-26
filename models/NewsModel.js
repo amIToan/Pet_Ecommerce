@@ -31,6 +31,14 @@ const newsSchema = mongoose.Schema(
         default: null,
       },
     ],
+    MetaKeyword: {
+      type: String,
+      required: false
+    },
+    MetaDes: {
+      type: String,
+      required: false
+    },
   },
   {
     timestamps: true,

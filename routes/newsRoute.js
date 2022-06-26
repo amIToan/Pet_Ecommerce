@@ -39,7 +39,8 @@ newsRoute.post(
     if (req.files && req.files.length > 0) {
       req.files.map((item) => newsImages.push(item.filename));
     }
-    const { title, slug, description } = req.body;
+    const { title, MetaKeyword,
+      MetaDes, slug, description } = req.body;
     const newsExist = await News.findOne({ title });
     if (newsExist) {
       res.status(400);
@@ -47,6 +48,8 @@ newsRoute.post(
     } else {
       const newsPost = await News.create({
         title,
+        MetaKeyword,
+        MetaDes,
         slug,
         description,
         image: newsImages,
@@ -86,7 +89,6 @@ newsRoute.get(
 // Get User's Posts
 newsRoute.get(
   "/:id",
-  verifyTokenAndUser,
   expressAsyncHandler(async (req, res) => {
     const userPosts = await News.findById(req.params.id);
     if (userPosts) {
@@ -104,13 +106,16 @@ newsRoute.put(
   upload.array("newsImgs"),
   expressAsyncHandler(async (req, res) => {
     const userPosts = await News.findById(req.params.id);
-    const { title, slug, description, categories } = req.body;
+    const { title, MetaKeyword,
+      MetaDes, slug, description, categories } = req.body;
     if (userPosts) {
       if (
         req.user.isAdmin ||
         userPosts.user.valueOf() === req.user._id.valueOf()
       ) {
         userPosts.title = title || userPosts.title;
+        userPosts.MetaKeyword = MetaKeyword || userPosts.MetaKeyword;
+        userPosts.MetaDes = MetaDes || userPosts.MetaDes;
         userPosts.slug = slug || userPosts.slug;
         userPosts.description = description || userPosts.description;
         userPosts.categories = categories || userPosts.categories;

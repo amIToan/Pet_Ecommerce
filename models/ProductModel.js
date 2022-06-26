@@ -64,6 +64,14 @@ const productSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
+    MetaKeyword: {
+      type: String,
+      required: false
+    },
+    MetaDes: {
+      type: String,
+      required: false
+    },
   },
   {
     timestamps: true,

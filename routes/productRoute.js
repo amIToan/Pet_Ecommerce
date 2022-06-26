@@ -18,11 +18,11 @@ productRoute.get(
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.keyword
       ? {
-          name: {
-            $regex: req.query.keyword,
-            $options: "i",
-          },
-        }
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
       : {};
     const count = await Product.countDocuments({ ...keyword }); // total number of products
     const products = await Product.find({ ...keyword }) // find all products with keywords
@@ -179,6 +179,8 @@ productRoute.post(
     const productImages = [];
     const {
       name,
+      MetaKeyword,
+      MetaDes,
       price,
       description,
       size,
@@ -198,6 +200,8 @@ productRoute.post(
     } else {
       const product = new Product({
         name,
+        MetaKeyword,
+        MetaDes,
         price,
         description,
         size,
@@ -225,6 +229,8 @@ productRoute.put(
   asyncHandler(async (req, res) => {
     const {
       name,
+      MetaKeyword,
+      MetaDes,
       price,
       description,
       size,
@@ -238,6 +244,8 @@ productRoute.put(
     const product = await Product.findById(req.params.id);
     if (product) {
       product.name = name || product.name;
+      product.MetaKeyword = MetaKeyword || product.MetaKeyword;
+      product.MetaDes = MetaDes || product.MetaDes;
       product.price = price || product.price;
       product.description = description || product.description;
       product.categories = req.body.categories
