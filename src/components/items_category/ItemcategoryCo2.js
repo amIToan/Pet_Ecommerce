@@ -10,7 +10,6 @@ function ItemcategoryCo2({ data }) {
   const [limit, setLimit] = useState(5);
   const dispatch = useDispatch();
   const handleAddToCart = (item) => {
-    console.log(item);
     dispatch(addToCart(item));
     toast("The product added successfully!", toastConfig);
   };

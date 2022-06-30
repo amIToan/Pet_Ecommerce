@@ -7,9 +7,9 @@ import Message from "../../components/Error.Loading/Error";
 import publicRequest from "../../RequestMethos";
 import { useQuery } from "react-query";
 import { useParams, Link } from "react-router-dom";
-import { newsImageURL } from "../../RequestMethos"
+import { newsImageURL } from "../../RequestMethos";
 import Pagination from "../../components/Pagination/Pagination";
-import "../../components/News/News.scss"
+import "../../components/News/News.scss";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 async function fetchingData(pageNumber = 1) {
   const { data } = await publicRequest.get(
@@ -28,7 +28,6 @@ const Newspage = () => {
       staleTime: 300000,
     }
   );
-  console.log(data);
   return (
     <>
       <Navbar />
@@ -69,10 +68,7 @@ const Newspage = () => {
             </div>
           )}
           <div className="col-12">
-            <Pagination
-              pages={data?.pages}
-              page={data?.page}
-            />
+            <Pagination pages={data?.pages} page={data?.page} />
           </div>
         </div>
       </div>

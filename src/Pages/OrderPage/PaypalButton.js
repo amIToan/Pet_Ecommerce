@@ -4,6 +4,12 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useEffect, useState } from "react";
 import publicRequest from "../../RequestMethos";
 const PaypalButton = ({ totalPrice, orderId, dispatch, OrderDetail }) => {
+  let usdPrice;
+  if (totalPrice / 24000 > 1) {
+    usdPrice = Math.round((totalPrice / 24000).toFixed(2));
+  } else {
+    usdPrice = 10;
+  }
   const [clientId, setClientId] = useState(false);
   useEffect(() => {
     async function fetchPayPal() {
@@ -35,7 +41,7 @@ const PaypalButton = ({ totalPrice, orderId, dispatch, OrderDetail }) => {
             purchase_units: [
               {
                 amount: {
-                  value: totalPrice,
+                  value: usdPrice,
                 },
               },
             ],

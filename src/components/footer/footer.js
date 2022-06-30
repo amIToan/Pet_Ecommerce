@@ -14,36 +14,46 @@ function Footer() {
         <div className="container">
           <div className="row">
             <div className="col-md-3 col-sm-4">
-              <div className="app_footer_top_logo">
+              <div className="app_footer_top_logo py-3">
                 <Link to={"/"}>
                   <img
-                    src={`${ImageURL}/${companyInfo && companyInfo[0]?.logoHeader
-                      }`}
+                    src={`${ImageURL}/${
+                      companyInfo && companyInfo[0]?.logoHeader
+                    }`}
                     alt="Logo"
-                    className="img-fluid d-block bg-light"
+                    className="img-fluid d-block "
+                    width={200}
                   />
                 </Link>
               </div>
-              <p>{companyInfo && companyInfo[0]?.Introduction}</p>
+              {companyInfo && (
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: companyInfo[0]?.Introduction,
+                  }}
+                />
+              )}
               <p>GPKD: 3500376775 - Ngày cấp: 24/1/2000</p>
               <p>Nơi cấp: sở kế hoạch và đầu tư tỉnh Bà Rịa - Vũng Tàu</p>
             </div>
             <div className="col-md-2 col-sm-4">
-              <div className="app_footer_top_firstLine">TÀI KHOẢN CỦA BẠN</div>
-              <ul className="app_footer_top_links">
-                <li>
-                  <a href="/account/login?aelang=vi">Xem trạng thái đơn hàng</a>
-                </li>
-                <li>
-                  <a href="/account/register?aelang=vi">Lịch sử đơn hàng</a>
-                </li>
-                <li>
-                  <a href="/search?aelang=vi">Tìm kiếm</a>
-                </li>
-                <li>
-                  <a href="/chinh-sach-bao-mat?aelang=vi">Chính sách bảo mật</a>
-                </li>
-              </ul>
+              <div className="app_footer_top_firstLine">FanPage</div>
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fgiaivn%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                style={{
+                  border: "none",
+                  overflow: "hidden",
+                  aspectRatio: 1 / 1,
+                  maxWidth: "100%",
+                }}
+                scrolling={"no"}
+                frameBorder={"0"}
+                allowFullScreen={true}
+                allow={
+                  "autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                }
+                title="Facebook"
+              ></iframe>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className="app_footer_top_firstLine">HỖ TRỢ</div>
@@ -67,21 +77,21 @@ function Footer() {
               </ul>
             </div>
             <div className="col-md-2 col-sm-4">
-              <div className="app_footer_top_firstLine">VỀ PET SHOP</div>
+              <div className="app_footer_top_firstLine">VỀ GIAI SHOP</div>
               <ul className="app_footer_top_links">
                 <li>
-                  <a href="/gioi-thieu?aelang=vi">Giới thiệu Pet Shop</a>
+                  <a href="/gioi-thieu?aelang=vi">Giới thiệu Giai Shop</a>
                 </li>
                 <li>
                   <a href="/he-thong-cua-hang-pet-shop?aelang=vi">
-                    Các Cửa hàng Pet Shop
+                    Các cửa hàng Giai Shop
                   </a>
                 </li>
                 <li>
                   <a href="/tuyen-dung?aelang=vi">Tuyển dụng</a>
                 </li>
                 <li>
-                  <a href="http://blog.petshop.vn?aelang=vi">Blog Bé Bo</a>
+                  <a href="#">Blog cá nhân</a>
                 </li>
               </ul>
             </div>
@@ -112,22 +122,10 @@ function Footer() {
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <div className="app_footer_middle_paymentAccess">
-                <img
-                  src={`/payment-1.webp`}
-                  alt="Pet Shop"
-                />
-                <img
-                  src="/payment-2.webp"
-                  alt="Pet Shop"
-                />
-                <img
-                  src="/payment-3.webp"
-                  alt="Pet Shop"
-                />
-                <img
-                  src="/payment-4.webp"
-                  alt="Pet Shop"
-                />
+                <img src={`/payment-1.webp`} alt="Pet Shop" />
+                <img src="/payment-2.webp" alt="Pet Shop" />
+                <img src="/payment-3.webp" alt="Pet Shop" />
+                <img src="/payment-4.webp" alt="Pet Shop" />
               </div>
             </div>
             <div className="col-xs-12 col-sm-6">
@@ -164,9 +162,7 @@ function Footer() {
       </div>
       <div className="app_footer_bottom">
         <div className="container">
-          <span>
-            © 2016-2022  CÔNG TY CỔ PHẦN THƯƠNG MẠI GIAI.VN
-          </span>
+          <span>© 2016-2022 CÔNG TY CỔ PHẦN THƯƠNG MẠI GIAI.VN</span>
         </div>
       </div>
     </div>

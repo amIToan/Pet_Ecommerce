@@ -185,7 +185,7 @@ const OrderPage = () => {
                   <td>
                     <strong>Total</strong>
                   </td>
-                  <td>${Currency(itemsPrice)}</td>
+                  <td>{Currency(itemsPrice)}</td>
                 </tr>
               </tbody>
             </table>

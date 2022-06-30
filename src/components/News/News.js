@@ -30,11 +30,14 @@ const News = () => {
               {state.map((item) => (
                 <>
                   <div className="col-12 col-md-3">
-                    <h3 className="app_News_subHeadline mb-3">{item?.title}</h3>
+                    <h3 className="app_News_subHeadline mb-3">
+                      {item?.title.toUpperCase()}
+                    </h3>
                     <img
                       src={`${newsImageURL}/${item?.image[0]}`}
                       alt="Mo ta san pham"
                       className="d-block img-fluid mb-3"
+                      style={{ aspectRadio: 4 / 4 }}
                     />
                     <div
                       className="app_News_shortDesc"

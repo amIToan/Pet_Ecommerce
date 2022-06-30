@@ -102,12 +102,15 @@ const Navbar = () => {
         {/* DDay la comment mobile cho sidebar */}
         <div className="container">
           <div className="row align-items-center justify-content-between">
-            <div className="col-12 col-md-6 app_navbar_logo">
+            <div className="col-12 col-md-6 app_navbar_logo py-3">
               <Link to={"/"}>
                 <img
-                  src={`${ImageURL}/${companyInfo && companyInfo[0]?.logoHeader
-                    }`}
+                  src={`${ImageURL}/${
+                    companyInfo && companyInfo[0]?.logoHeader
+                  }`}
                   alt="Logo"
+                  width={200}
+                  className="d-block img-fluid"
                 />
               </Link>
             </div>
@@ -121,7 +124,6 @@ const Navbar = () => {
                         {item.categoryName}
                       </Link>
                     </>
-
                   ))}
               </div>
             </div>

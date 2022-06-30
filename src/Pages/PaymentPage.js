@@ -23,7 +23,6 @@ const PaymentPage = () => {
     dispatch(saveCartMethod(payment));
     navigate("/placeorder");
   };
-  console.log(payment);
   return (
     <>
       <Navbar />

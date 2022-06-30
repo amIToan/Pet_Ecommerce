@@ -100,7 +100,6 @@ export const logoutUser = async (dispatch, navigate, axiosJWT) => {
     dispatch(logoutSuccess());
     navigate("/login");
   } catch (error) {
-    console.log(error);
     dispatch(
       logoutFailed(
         error.response && error.response.data.message
@@ -128,7 +127,6 @@ export const updatedUser = async (user, dispatch, axiosJWT) => {
     dispatch(updatedSuccess(res.data));
     return true;
   } catch (error) {
-    console.log(error);
     dispatch(
       updatedFailed(
         error.response && error.response.data.message
@@ -204,7 +202,6 @@ export const specifiedOrderAction = async (id, dispatch) => {
     const res = await publicRequest.get(`/orders/${id}`, config);
     dispatch(getOrderSuccess(res.data));
   } catch (error) {
-    console.log(error);
     dispatch(
       getOrderFailed(
         error.response && error.response.data.message

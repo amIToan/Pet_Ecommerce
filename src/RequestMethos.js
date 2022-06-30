@@ -17,11 +17,8 @@ const refreshTokenFunc = async () => {
       withCredentials: true,
       credentials: "include",
     });
-    console.log(res.data);
     return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 export const createAxios = (user, stateSuccess, dispatch) => {
   let axiosJWT = axios.create({

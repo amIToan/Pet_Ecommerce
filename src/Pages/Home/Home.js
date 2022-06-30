@@ -18,8 +18,22 @@ const Home = () => {
     <>
       <Helmet>
         <title>Trang chủ</title>
-        <meta name="keywords" content={companyInfo?.metaKeys ? companyInfo.metaKeys : "Quần áo, trang phục , BJJ, Brazilian JiuJitsu, Judo, võ phục, Nogi, Rashguard,..."} />
-        <meta name="description" content={companyInfo?.metaDes ? companyInfo.metaDes : "Công ty chuyên về võ phục, Gi, NoGi, đặc biệt chuyên về Judo, Brazilian JiuJitsu, BJJ,..."} />
+        <meta
+          name="keywords"
+          content={
+            companyInfo?.metaKeys
+              ? companyInfo.metaKeys
+              : "Quần áo, trang phục , BJJ, Brazilian JiuJitsu, Judo, võ phục, Nogi, Rashguard,..."
+          }
+        />
+        <meta
+          name="description"
+          content={
+            companyInfo?.metaDes
+              ? companyInfo.metaDes
+              : "Công ty chuyên về võ phục, Gi, NoGi, đặc biệt chuyên về Judo, Brazilian JiuJitsu, BJJ,..."
+          }
+        />
       </Helmet>
       <Navbar />
       <Slider />

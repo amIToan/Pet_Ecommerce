@@ -12,7 +12,6 @@ function ItemscategoryCo({ data }) {
   const [limit, setLimit] = useState(9);
   const dispatch = useDispatch();
   const handleAddToCart = (item) => {
-    console.log(item);
     dispatch(addToCart(item));
     toast("The product added successfully!", toastConfig);
   };
