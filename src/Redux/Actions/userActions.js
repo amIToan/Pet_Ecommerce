@@ -49,7 +49,10 @@ export const login = (email, password) => async (dispatch) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (
+      message === "Not authorized, token failed" ||
+      message === "Not authorized, no token"
+    ) {
       dispatch(logout());
     }
     dispatch({
@@ -89,7 +92,10 @@ export const listUser = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (
+      message === "Not authorized, token failed" ||
+      message === "Not authorized, no token"
+    ) {
       dispatch(logout());
     }
     dispatch({

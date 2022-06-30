@@ -41,7 +41,7 @@ export const listProducts = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message || error.response.data) {
       dispatch(logout());
     }
     dispatch({
@@ -74,7 +74,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message || error.response.data) {
       dispatch(logout());
     }
     dispatch({
@@ -101,7 +101,11 @@ export const createProduct = (productInfo) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await publicRequest.post(`/api/products/`, productInfo, config);
+    const { data } = await publicRequest.post(
+      `/api/products/`,
+      productInfo,
+      config
+    );
 
     dispatch({ type: PRODUCT_CREATE_SUCCESS, payload: data });
   } catch (error) {
@@ -109,7 +113,7 @@ export const createProduct = (productInfo) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message || error.response.data) {
       dispatch(logout());
     }
     dispatch({
@@ -130,7 +134,7 @@ export const editProduct = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message || error.response.data) {
       dispatch(logout());
     }
     dispatch({
@@ -155,14 +159,18 @@ export const updateProduct = (id, product) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await publicRequest.put(`/api/products/${id}`, product, config);
+    const { data } = await publicRequest.put(
+      `/api/products/${id}`,
+      product,
+      config
+    );
     data && dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === "Not authorized, token failed") {
+    if (message || error.response.data) {
       dispatch(logout());
     }
     dispatch({

@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
-import { createNEWs, updateNews } from "../../Redux/Actions/NewsAction";
+import { createBranch, updateBranch } from "../../Redux/Actions/BranchActions";
 import { DropzoneArea } from "material-ui-dropzone";
 import EditorToolbar, { modules, formats } from "../QuillEditor/EditorToolbar";
 import "../products/TextEditor.css";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-import {
-  NEWS_CREATE_RESET,
-  NEWS_UPDATE_RESET,
-} from "../../Redux/Constants/NewsConstant";
 import { publicRequest } from "../../Helps";
 import { newsURL } from "../../Helps";
+import {
+  BRANCH_CREATE_RESET,
+  BRANCH_UPDATE_RESET,
+} from "../../Redux/Constants/BranchConstant";
 function changeLinkImage(params) {
   if (params?.length > 0) {
     const newLinkImages = params.map((item) => `${newsURL}${item}`);
     return newLinkImages;
   }
 }
-const AddAndEditNews = ({ newsId, isBranch }) => {
+const Branch = () => {
   const dispatch = useDispatch();
   const {
     userLogin: { userInfo },
   } = useSelector((state) => state);
-  const createNews = useSelector((state) => state.newsCreate);
-  const updatedNews = useSelector((state) => state.newUpdate);
+  const createNews = useSelector((state) => state.branchCreate);
+  const updatedNews = useSelector((state) => state.branchUpdate);
   const [news, setNews] = useState({});
   const [images, setImages] = useState(null);
   const [urlImage, setUrlImage] = useState(null);
@@ -42,33 +42,36 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
     if (images.length > 0) {
       images.forEach((item) => formData.append("newsImgs", item));
     }
-    if (newsId) {
-      dispatch(updateNews(newsId, formData));
+    if (news.title) {
+      dispatch(updateBranch(formData));
     } else {
-      dispatch(createNEWs(formData));
+      dispatch(createBranch(formData));
     }
   };
   useEffect(() => {
-    if (createNews.news) {
+    if (createNews.branch) {
       alert("News Added successfully!!!");
-      dispatch({ type: NEWS_CREATE_RESET });
+      dispatch({ type: BRANCH_CREATE_RESET });
       setNews({});
     }
     if (updatedNews.success) {
       alert("News Updating successfully!!!");
-      dispatch({ type: NEWS_UPDATE_RESET });
+      dispatch({ type: BRANCH_UPDATE_RESET });
       setNews({});
     }
-  }, [createNews.news, dispatch, updatedNews.success]);
+  }, [createNews.branch, dispatch, updatedNews.success]);
   useEffect(() => {
-    if (newsId) {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
-      async function fetchingNewsById(newsId) {
-        const { data } = await publicRequest.get(`/api/news/${newsId}`, config);
+    if (!news.title) {
+      async function fetchingNewsById() {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        };
+        const { data } = await publicRequest.get(
+          `/api/news/branch/unique`,
+          config
+        );
         if (data) {
           setNews({
             title: data.title,
@@ -78,9 +81,13 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
           setUrlImage(data.image);
         }
       }
-      fetchingNewsById(newsId);
+      fetchingNewsById();
     }
-  }, [newsId, updatedNews.success]);
+    return () => {
+      setNews(null);
+      setUrlImage(null);
+    };
+  }, [updatedNews.success]);
   return (
     <>
       <section className="content-main" style={{ maxWidth: "1200px" }}>
@@ -103,7 +110,7 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                     <Message variant="alert-danger">{createNews.error}</Message>
                   )}
                   {createNews.loading && <Loading />}
-                  {newsId && !news.title && <Loading />}
+                  {!news?.description && <Loading />}
                   <div className="mb-4">
                     <label htmlFor="title" className="form-label">
                       Title
@@ -113,14 +120,8 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                       placeholder="Type here"
                       className="form-control"
                       name="title"
-                      required
-                      value={news.title ? news.title : ""}
-                      onChange={(e) =>
-                        setNews({
-                          ...news,
-                          [e.target.name]: e.target.value,
-                        })
-                      }
+                      value={"Hệ thống các chi nhánh trên toàn quốc"}
+                      disabled={true}
                     />
                   </div>
                   <div className="mb-4">
@@ -132,7 +133,7 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                       placeholder="Type here"
                       className="form-control"
                       name="slug"
-                      value={news.slug ? news.slug : ""}
+                      value={news?.slug ? news.slug : ""}
                       onChange={(e) =>
                         setNews({
                           ...news,
@@ -145,17 +146,18 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                     <label htmlFor="description" className="form-label">
                       Description
                     </label>
-                    <EditorToolbar toolbarId={"News"} />
+                    <EditorToolbar toolbarId={"Branch"} />
                     <ReactQuill
                       theme="snow"
-                      value={news.description ? news.description : ""}
+                      value={news?.description ? news.description : ""}
                       onChange={(value) => {
-                        if (news.title) {
+                        if (news?.title) {
                           setNews({ ...news, description: value });
+                          return;
                         }
                       }}
                       placeholder={"Write something awesome..."}
-                      modules={modules("News")}
+                      modules={modules("Branch")}
                       formats={formats}
                     />
                   </div>
@@ -177,6 +179,7 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                           item: "Mui-3",
                         }}
                         name="uploadNewsImages"
+                        maxFileSize={500000}
                       />
                     )}
                     {urlImage && urlImage.length > 0 && (
@@ -193,6 +196,7 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
                         }}
                         initialFiles={changeLinkImage(urlImage)}
                         name="uploadNewsImages"
+                        maxFileSize={500000}
                       />
                     )}
                   </div>
@@ -206,4 +210,4 @@ const AddAndEditNews = ({ newsId, isBranch }) => {
   );
 };
 
-export default AddAndEditNews;
+export default Branch;

@@ -1,8 +1,7 @@
 import Sidebar from "./../components/sidebar";
 import Header from "./../components/Header";
-import { useEffect, useState, useRef } from "react";
 import AddAndEditNews from "../components/news/AddAndEditNews";
-const NewsEditAndAddScreen = ({ match }) => {
+const NewsEditAndAddScreen = ({ match, ...props }) => {
   const newsId = match.params.id;
   return (
     <>

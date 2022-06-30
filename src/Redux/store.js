@@ -25,12 +25,14 @@ import {
 } from "./Reducers/CategorReducer";
 import { updateBannerInfo } from "./Reducers/BannerReducer";
 import {
-  newsListReducer,
   newsCreateReducer,
-  newsEditReducer,
   newsUpdateReducer,
   newsDeleteReducer,
 } from "./Reducers/NewsReducer";
+import {
+  branchCreateReducer,
+  branchUpdateReducer,
+} from "./Reducers/BranchReducer";
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userList: userListReducer,
@@ -42,7 +44,6 @@ const reducer = combineReducers({
   orderList: orderListReducer,
   orderDetails: orderDetailsReducer,
   orderUpdate: orderUpdateReducer,
-  // CompanyAction: companyCreateUpdateReducer,
   UpdatedCompanyInfo: UpdateCompanyInfo,
   CompanyInfo: getCompanyReducer,
   CategoryList: getAllCategory,
@@ -52,6 +53,8 @@ const reducer = combineReducers({
   newsCreate: newsCreateReducer,
   newUpdate: newsUpdateReducer,
   newsDeletion: newsDeleteReducer,
+  branchCreate: branchCreateReducer,
+  branchUpdate: branchUpdateReducer,
 });
 
 // login

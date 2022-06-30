@@ -26,6 +26,7 @@ import { listUser } from "./Redux/Actions/userActions";
 import ModifiedBanner from "./screens/ModifiedBanner";
 import NewsScreen from "./screens/NewsScreen";
 import NewsEditAndAddScreen from "./screens/NewsEditAndAddScreen";
+import BranchScreen from "./screens/BranchScreen";
 function App() {
   document.title = "Admin Page";
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ function App() {
             path="/product/:id/edit"
             component={ProductEditScreen}
           />
+          <PrivateRouter path="/branch" component={BranchScreen} />
           <Route path="/login" component={Login} />
           <PrivateRouter path="*" component={NotFound} />
         </Switch>
