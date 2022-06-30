@@ -39,8 +39,7 @@ newsRoute.post(
     if (req.files && req.files.length > 0) {
       req.files.map((item) => newsImages.push(item.filename));
     }
-    const { title, MetaKeyword,
-      MetaDes, slug, description } = req.body;
+    const { title, MetaKeyword, MetaDes, slug, description } = req.body;
     const newsExist = await News.findOne({ title });
     if (newsExist) {
       res.status(400);
@@ -106,8 +105,8 @@ newsRoute.put(
   upload.array("newsImgs"),
   expressAsyncHandler(async (req, res) => {
     const userPosts = await News.findById(req.params.id);
-    const { title, MetaKeyword,
-      MetaDes, slug, description, categories } = req.body;
+    const { title, MetaKeyword, MetaDes, slug, description, categories } =
+      req.body;
     if (userPosts) {
       if (
         req.user.isAdmin ||
@@ -194,6 +193,114 @@ newsRoute.delete(
       } else {
         res.status(400);
         throw new Error("You don't have the permission");
+      }
+    } else {
+      res.status(401);
+      throw new Error("Not found!!!");
+    }
+  })
+);
+newsRoute.post(
+  "/branch",
+  verifyToken,
+  upload.array("newsImgs"),
+  expressAsyncHandler(async (req, res) => {
+    const newsImages = [];
+    if (req.files && req.files.length > 0) {
+      req.files.map((item) => newsImages.push(item.filename));
+    }
+    const Title = "Hệ thống các chi nhánh trên toàn quốc";
+    const { MetaKeyword, MetaDes, slug, description } = req.body;
+    const newsPost = await News.create({
+      title: Title,
+      MetaKeyword,
+      MetaDes,
+      slug,
+      description,
+      image: newsImages,
+      user: req.user._id,
+    });
+    if (newsPost) {
+      const createdPost = await newsPost.save();
+      res.status(201).json(createdPost);
+    } else {
+      res.status(400);
+      throw new Error();
+    }
+  })
+);
+newsRoute.get(
+  "/branch/unique",
+  upload.array("newsImgs"),
+  expressAsyncHandler(async (req, res) => {
+    const userPosts = await News.findOne({
+      title: "Hệ thống các chi nhánh trên toàn quốc",
+    });
+    if (userPosts) {
+      return res.status(200).json(userPosts);
+    } else {
+      res.status(401);
+      throw new Error("You don't have any posts");
+    }
+  })
+);
+newsRoute.put(
+  "/branch/unique",
+  verifyToken,
+  upload.array("newsImgs"),
+  expressAsyncHandler(async (req, res) => {
+    const userPosts = await News.findOne({
+      title: "Hệ thống các chi nhánh trên toàn quốc",
+    });
+    const { MetaKeyword, MetaDes, slug, description, categories } = req.body;
+    if (userPosts) {
+      if (
+        req.user.isAdmin ||
+        userPosts.user.valueOf() === req.user._id.valueOf()
+      ) {
+        userPosts.MetaKeyword = MetaKeyword || userPosts.MetaKeyword;
+        userPosts.MetaDes = MetaDes || userPosts.MetaDes;
+        userPosts.slug = slug || userPosts.slug;
+        userPosts.description = description || userPosts.description;
+        userPosts.categories = categories || userPosts.categories;
+        if (req.files && req.files.length > 0) {
+          const newsImages = [];
+          req.files.map((item) => newsImages.push(item.filename));
+          try {
+            userPosts.image?.length > 0 &&
+              userPosts.image.forEach((item) => {
+                if (fs.existsSync(fileImageRoot(item))) {
+                  fs.unlink(fileImageRoot(item), function (err) {
+                    if (err) throw err;
+                  });
+                }
+              });
+            userPosts.image = newsImages || userPosts.image;
+            const updatedCate = await userPosts.save();
+            res.status(201).json(updatedCate);
+          } catch (error) {
+            throw new Error(error);
+          }
+        } else {
+          try {
+            userPosts.image?.length > 0 &&
+              userPosts.image.forEach((item) => {
+                if (fs.existsSync(fileImageRoot(item))) {
+                  fs.unlink(fileImageRoot(item), function (err) {
+                    if (err) throw err;
+                  });
+                }
+              });
+            userPosts.image = [];
+            const updatedNews = await userPosts.save();
+            res.status(201).json(updatedNews);
+          } catch (error) {
+            throw new Error(error);
+          }
+        }
+      } else {
+        res.status(500);
+        throw new Error("Invalid Data!!!");
       }
     } else {
       res.status(401);

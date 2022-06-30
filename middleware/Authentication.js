@@ -19,13 +19,11 @@ const verifyToken = expressAsyncHandler(async (req, res, next) => {
         next();
       }
       if (err) {
-        res.status(500);
-        throw new Error("Not authorized, no token");
+        res.status(500).json("Not authorized, token failed");
       }
     });
   } else {
-    res.status(401);
-    throw new Error("Not authorized, no token");
+    res.status(500).json("Not authorized, token failed");
   }
 });
 const verifyTokenAndUser = (req, res, next) => {
