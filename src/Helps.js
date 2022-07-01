@@ -8,7 +8,7 @@ export const publicRequest = axios.create({
 });
 export const ImageURL =
   process.env.NODE_ENV === "production"
-    ? "http://admin.giai.vn:5000"
+    ? "http://admin.giai.vn:5000/Images/"
     : "http://localhost:5000/Images/";
 export const newsURL =
   process.env.NODE_ENV === "production"
