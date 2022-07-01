@@ -20,7 +20,7 @@ import moment from "moment";
 import { addToCart } from "../../redux/sliceReducer/CartSlice";
 import { resetPayment } from "../../redux/sliceReducer/PaymentSlice";
 import { resetReview } from "../../redux/sliceReducer/ReviewSlice";
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
 function DetailPage() {
   const dispatch = useDispatch();
   const { productId } = useParams();
@@ -48,12 +48,29 @@ function DetailPage() {
     dispatch(addToCart(item));
     toast("The product added successfully!", toastConfig);
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Helmet>
-        <title>{product?.name ? product.name : "PetShop"}</title>
-        <meta name="keywords" content={product?.metaKeys ? product.metaKeys : "Quần áo, trang phục , BJJ, Brazilian JiuJitsu, Judo, võ phục, Nogi, Rashguard,..."} />
-        <meta name="description" content={product?.metaDes ? product.metaDes : "Công ty chuyên về võ phục, Gi, NoGi, đặc biệt chuyên về Judo, Brazilian JiuJitsu, BJJ,..."} />
+        <title>{product?.name ? product.name : "Giai Shop"}</title>
+        <meta
+          name="keywords"
+          content={
+            product?.metaKeys
+              ? product.metaKeys
+              : "Quần áo, trang phục , BJJ, Brazilian JiuJitsu, Judo, võ phục, Nogi, Rashguard,..."
+          }
+        />
+        <meta
+          name="description"
+          content={
+            product?.metaDes
+              ? product.metaDes
+              : "Công ty chuyên về võ phục, Gi, NoGi, đặc biệt chuyên về Judo, Brazilian JiuJitsu, BJJ,..."
+          }
+        />
       </Helmet>
       <Navbar />
       <Map />

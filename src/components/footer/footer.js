@@ -33,8 +33,8 @@ function Footer() {
                   }}
                 />
               )}
-              <p>GPKD: 3500376775 - Ngày cấp: 24/1/2000</p>
-              <p>Nơi cấp: sở kế hoạch và đầu tư tỉnh Bà Rịa - Vũng Tàu</p>
+              <p>GPKD: 3500376775 - Ngày cấp: 24/1/2022</p>
+              <p>Nơi cấp: sở kế hoạch và đầu tư thành phố Hà Nội</p>
             </div>
             <div className="col-md-2 col-sm-4">
               <div className="app_footer_top_firstLine">FanPage</div>
@@ -80,15 +80,13 @@ function Footer() {
               <div className="app_footer_top_firstLine">VỀ GIAI SHOP</div>
               <ul className="app_footer_top_links">
                 <li>
-                  <a href="/gioi-thieu?aelang=vi">Giới thiệu Giai Shop</a>
+                  <a href="#">Giới thiệu Giai Shop</a>
                 </li>
                 <li>
-                  <a href="/he-thong-cua-hang-pet-shop?aelang=vi">
-                    Các cửa hàng Giai Shop
-                  </a>
+                  <a href="#">Các cửa hàng Giai Shop</a>
                 </li>
                 <li>
-                  <a href="/tuyen-dung?aelang=vi">Tuyển dụng</a>
+                  <a href="#">Tuyển dụng</a>
                 </li>
                 <li>
                   <a href="#">Blog cá nhân</a>
@@ -122,10 +120,10 @@ function Footer() {
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <div className="app_footer_middle_paymentAccess">
-                <img src={`/payment-1.webp`} alt="Pet Shop" />
-                <img src="/payment-2.webp" alt="Pet Shop" />
-                <img src="/payment-3.webp" alt="Pet Shop" />
-                <img src="/payment-4.webp" alt="Pet Shop" />
+                <img src={`/payment-1.jpg`} alt="Giai Shop" />
+                <img src="/payment-2.jpg" alt="Giai Shop" />
+                <img src="/payment-3.jpg" alt="Giai Shop" />
+                <img src="/payment-4.jpg" alt="Giai Shop" />
               </div>
             </div>
             <div className="col-xs-12 col-sm-6">

@@ -126,7 +126,7 @@ const UserOrderDetails = () => {
                 </p>
                 <p className="mb-1">Pay method: {OrderDetail?.paymentMethod}</p>
                 {OrderDetail?.paymentMethod === "PayPal" &&
-                  OrderDetail?.isPaid === true ? (
+                OrderDetail?.isPaid === true ? (
                   <div className="bg-success p-2 col-12">
                     <p className="text-white text-center text-sm-start mb-1">
                       Paid on {moment(OrderDetail?.paidAt).calendar()}
@@ -235,8 +235,7 @@ const UserOrderDetails = () => {
               </tbody>
             </table>
             {OrderDetail?.paymentMethod === "Domestic" &&
-              OrderDetail.paymentResult?.status !== "Pending" &&
-              paymentPending !== true && (
+              OrderDetail.paymentResult?.status !== "Pending" && (
                 <>
                   <DebitButton
                     orderId={orderId}

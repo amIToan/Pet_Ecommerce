@@ -74,12 +74,14 @@ const HotProduct = () => {
               hotPros.map((item) => (
                 <div className="p-3" key={item._id}>
                   <div className="app_hotProduct_imgContainer">
-                    <img
-                      src={`${ImageURL}/${item.image[0]}`}
-                      alt={item.name}
-                      className="d-block"
-                      style={{ aspectRatio: 4 / 4, width: "100%" }}
-                    />
+                    <Link to={`/details/${item._id}`}>
+                      <img
+                        src={`${ImageURL}/${item.image[0]}`}
+                        alt={item.name}
+                        className="d-block"
+                        style={{ aspectRatio: 4 / 4, width: "100%" }}
+                      />
+                    </Link>
                     <div className="app_hotProduct_options bg-light">
                       <div
                         className=" app_hotProduct_Add"

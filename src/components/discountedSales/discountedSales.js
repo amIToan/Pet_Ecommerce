@@ -1,12 +1,13 @@
 import "./discountedSales.scss";
 import Slider from "react-slick";
-import { ShoppingBagOutlined } from "@mui/icons-material";
+import { ShoppingBagOutlined, WindowRounded } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { ImageURL } from "../../RequestMethos";
 import { Link } from "react-router-dom";
 const DiscountedSales = () => {
   const { ProductList } = useSelector((state) => state.Product);
-  const newDisCountedArray = ProductList?.length > 0 && ProductList?.filter((item) => item.discount > 0);
+  const newDisCountedArray =
+    ProductList?.length > 0 && ProductList?.filter((item) => item.discount > 0);
   const settings = {
     dots: false,
     infinite:
@@ -50,36 +51,41 @@ const DiscountedSales = () => {
         </div>
         <div className="app_discountedProducts_slider">
           <Slider {...settings}>
-            {newDisCountedArray?.length > 0 && newDisCountedArray?.map((item) => (
-              <div className="p-3" key={item._id}>
-                <div className="app_discountedProduct_imgContainer">
-                  <img
-                    src={`${ImageURL}/${item.image[0]}`}
-                    alt={item.name}
-                    className="d-block"
-                    style={{ aspectRatio: 4 / 4, width: "100%" }}
-                  />
-                  <div className="app_discountedProduct_options bg-light">
-                    <div className=" app_discountedProduct_Add">
-                      <Link
-                        to={`/details/${item._id}`}
-                        className="text-black text-decoration-none"
-                      >
-                        {" "}
-                        Add <ShoppingBagOutlined />
-                      </Link>
+            {newDisCountedArray?.length > 0 &&
+              newDisCountedArray?.map((item) => (
+                <div className="p-3" key={item._id}>
+                  <div className="app_discountedProduct_imgContainer">
+                    <Link to={`/details/${item._id}`}>
+                      <img
+                        src={`${ImageURL}/${item.image[0]}`}
+                        alt={item.name}
+                        className="d-block"
+                        style={{ aspectRatio: 4 / 4, width: "100%" }}
+                      />
+                    </Link>
+                    <div className="app_discountedProduct_options bg-light">
+                      <div className=" app_discountedProduct_Add">
+                        <Link
+                          to={`/details/${item._id}`}
+                          className="text-black text-decoration-none"
+                        >
+                          {" "}
+                          Add <ShoppingBagOutlined />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            {newDisCountedArray?.length <= 0 &&
+              ))}
+            {newDisCountedArray?.length <= 0 && (
               <div className="p-3">
                 <div className="app_discountedProduct_imgContainer">
-                  <div className="alert alert-danger p-3">Hiện tại không có sản phẩm nào!!!</div>
+                  <div className="alert alert-danger p-3">
+                    Hiện tại không có sản phẩm nào!!!
+                  </div>
                 </div>
               </div>
-            }
+            )}
           </Slider>
         </div>
       </div>

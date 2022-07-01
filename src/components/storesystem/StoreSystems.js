@@ -1,6 +1,5 @@
 import "./StoreSystem.scss";
 import Slider from "react-slick";
-import { StoreSystem } from "../../dataSlider";
 import { useState, useEffect, memo } from "react";
 import publicRequest from "../../RequestMethos";
 import { newsImageURL } from "../../RequestMethos";

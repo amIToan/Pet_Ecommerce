@@ -73,12 +73,14 @@ const Newproduct = () => {
               newpro.map((item) => (
                 <div key={item._id} className="p-3">
                   <div className="app_newProduct_imgContainer">
-                    <img
-                      src={`${ImageURL}/${item.image[0]}`}
-                      alt={item.name}
-                      className="d-block"
-                      style={{ aspectRatio: 4 / 4, width: "100%" }}
-                    />
+                    <Link to={`/details/${item._id}`}>
+                      <img
+                        src={`${ImageURL}/${item.image[0]}`}
+                        alt={item.name}
+                        className="d-block"
+                        style={{ aspectRatio: 4 / 4, width: "100%" }}
+                      />
+                    </Link>
                     <div className="app_newProduct_options bg-light">
                       <div
                         className=" app_newProduct_Add"

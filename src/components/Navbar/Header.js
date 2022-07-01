@@ -35,8 +35,8 @@ const Header = () => {
     e.preventDefault();
     logoutUser(dispatch, navigate, axiosJWT);
   };
-  const Title = window.location.pathname.split("/")[1]
-  document.title = Title ? Title : "PetShop"
+  const Title = window.location.pathname.split("/")[1];
+  document.title = Title ? Title : "Giai Shop";
   return (
     <header className="header-top container-fluid">
       {isFetching && <Loading />}

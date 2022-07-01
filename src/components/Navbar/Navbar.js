@@ -69,7 +69,7 @@ const Navbar = () => {
               }
             >
               <div className="sidebar-header text-left">
-                <h3>PetShop </h3>
+                <h3>Giai Shop </h3>
                 <div
                   className="sibar_closed_button"
                   onClick={handleOpenSidebar}
