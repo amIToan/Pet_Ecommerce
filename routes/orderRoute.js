@@ -5,8 +5,46 @@ const {
   verifyTokenAndAdmin,
   verifyToken,
 } = require("../middleware/Authentication.js");
+var dotenv = require("dotenv");
+dotenv.config();
 const orderRouter = express.Router();
+//mail options 
+//Sending Email
+const nodemailer = require('nodemailer');
+const { google } = require('googleapis');
+// These id's and secrets should come from .env file.
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLEINT_SECRET = process.env.CLEINT_SECRET;
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLEINT_SECRET,
+  REDIRECT_URI,
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+async function sendMail(mailOptions) {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: 'giaivn1985@gmail.com',
+        clientId: CLIENT_ID,
+        clientSecret: CLEINT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken,
+      },
+    });
+    const result = await transport.sendMail(mailOptions);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
 
+////
 // create Order
 orderRouter.post(
   "/",
@@ -35,7 +73,30 @@ orderRouter.post(
         shippingPrice,
         totalPrice,
       });
+      //abronam @gmail.com
       const createOrder = await order.save();
+      const mailOptionsOwner = {
+        from: 'GIAIVN <giaivn1985@gmail.com>',
+        to: 'toantq.xsoft@gmail.com',
+        subject: `ĐÃ CÓ MỘT ĐƠN ĐẶT HÀNG MỚI TỪ GIAISHOP. XIN VUI LÒNG KIỂM TRA NGAY!!!`,
+        text: 'Vào trang quản trị để kiểm tra thông tin chi tiết : http://dashboard.giai.vn:99',
+        html: `<h1>Email khách hàng : ${req.user.email}</h1><h3>Tên khách hàng: ${req.user.name}</h3><h3>Thanh toán: ${createOrder.isPaid ? 'Đã thanh toán' :
+          'Chưa thanh toán'}</h3><h3>Mã đơn hàng: ${createOrder._id}</h3><h3>Tổng số tiền đơn hàng : ${createOrder.totalPrice}</h3><h3>Phương thức thanh toán : ${createOrder.paymentMethod}</h3>`
+      };
+      const mailOptionsBuyer = {
+        from: 'GIAIVN <giaivn1985@gmail.com>',
+        to: `${req.user.email}`,
+        subject: `Cảm ơn bạn đã đặt hàng trên GiaiShop!!! `,
+        text: 'CLICK VÀO EMAIL ĐƠN HÀNG ĐỂ KIỂM TRA',
+        html: `<h3>Tên khách hàng: ${req.user.name}</h3><h3>Thanh toán: ${createOrder.isPaid ? 'Đã thanh toán' :
+          'Chưa thanh toán'}</h3><h3>Tình trạng đơn hàng: ${createOrder.isDelivered ? 'Đã ship' : 'Chưa được ship'}</h3><h3>Mã đơn hàng: ${createOrder._id}</h3><h3>Tổng số tiền đơn hàng : ${createOrder.totalPrice}</h3><h3>Phương thức thanh toán : ${createOrder.paymentMethod}</h3>`
+      };
+      sendMail(mailOptionsOwner)
+      // .then((result) => console.log('Email sent...', result))
+      // .catch((error) => console.log(error.message));
+      sendMail(mailOptionsBuyer)
+      // .then((result) => console.log('Email sent...', result))
+      // .catch((error) => );
       res.status(201).json(createOrder);
     }
   })
