@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { publicRequest } from "../../Helps";
+import { deleteCategoryAction } from "../../Redux/Actions/CategoryAction";
+import { DELETE_CATEGORY_RESET } from "../../Redux/Constants/CategoryConstants";
+import { useHistory } from 'react-router-dom';
 const CategoriesTable = () => {
+  const dispatch = useDispatch();
+  const navigate = useHistory()
   const { listOfCategory, loading, error } = useSelector(
     (state) => state.CategoryList
+  );
+  const { loading:deletedLoading, success: deletedSuccess, error: deletedError } = useSelector(
+    (state) => state.deletedCate
   );
   const [characters, setUpdateCharacters] = useState();
   function handleOnDragEnd(result) {
@@ -50,18 +58,32 @@ const CategoriesTable = () => {
     }
     getIdOfCate(listOfCategory);
     setUpdateCharacters(categoryList);
+    
     return () => {
       setUpdateCharacters(null);
     };
   }, [listOfCategory]);
-  const handleDelete = (e, item) => {
+  useEffect(() => {
+    if (deletedSuccess)
+    {
+      alert("You deleted successfully!!!");
+      dispatch({ type: DELETE_CATEGORY_RESET })
+      navigate.push("/category")
+    } else if (deletedError)
+    {
+      alert(`There's something wrong happening!!!${deletedError.message}`);
+      dispatch({ type: DELETE_CATEGORY_RESET })
+      navigate.push("/category")
+    }
+  }, [deletedSuccess,deletedError]);
+  const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log("delete");
+    dispatch(deleteCategoryAction(id))
   };
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <div className="col-md-12 col-lg-6">
-        {loading && <Loading />}
+        {(loading || deletedLoading) && <Loading />}
         {error && <Message>{error}</Message>}
         <Droppable droppableId="characters">
           {(provided) => (
@@ -125,7 +147,6 @@ const CategoriesTable = () => {
                                 </Link>
                                 <Link
                                   className="dropdown-item text-danger"
-                                  to="#"
                                   onClick={(e) => {
                                     handleDelete(e, item._id);
                                   }}

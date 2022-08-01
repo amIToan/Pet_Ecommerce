@@ -3,7 +3,6 @@ import CategoriesTable from "./CategoriesTable";
 import { useParams } from "react-router-dom";
 const MainCategories = () => {
   const { cateId } = useParams();
-  console.log(cateId)
   return (
     <section className="content-main">
       <div className="content-header">

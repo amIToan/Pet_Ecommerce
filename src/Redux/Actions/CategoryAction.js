@@ -2,6 +2,9 @@ import {
   CREATE_CATEGORY_FAILED,
   CREATE_CATEGORY_INFO,
   CREATE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAILED,
+  DELETE_CATEGORY_LOADING,
+  DELETE_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILED,
   GET_CATEGORY_INFO,
   GET_CATEGORY_SUCCESS,
@@ -110,3 +113,33 @@ export const updatedCate = (id, formData) => async (dispatch, getState) => {
     });
   }
 };
+export const deleteCategoryAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: DELETE_CATEGORY_LOADING });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await publicRequest.delete(`/api/categories/${id}`, config);
+    console.log(data);
+    data && dispatch({ type: DELETE_CATEGORY_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed")
+    {
+      dispatch(logout());
+    }
+    dispatch({
+      type: DELETE_CATEGORY_FAILED,
+      payload: message,
+    });
+  }
+}

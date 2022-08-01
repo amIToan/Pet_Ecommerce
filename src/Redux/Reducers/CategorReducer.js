@@ -3,6 +3,10 @@ import {
   CREATE_CATEGORY_INFO,
   CREATE_CATEGORY_RESET,
   CREATE_CATEGORY_SUCCESS,
+  DELETE_CATEGORY_FAILED,
+  DELETE_CATEGORY_LOADING,
+  DELETE_CATEGORY_RESET,
+  DELETE_CATEGORY_SUCCESS,
   GET_CATEGORY_FAILED,
   GET_CATEGORY_INFO,
   GET_CATEGORY_RESET,
@@ -81,3 +85,27 @@ export const getAllCategory = (
       return state;
   }
 };
+export const deleteCate = (state = { loading: false, success: false, error: false },action) => {
+  switch (action.type)
+  {
+    case DELETE_CATEGORY_LOADING:
+      return { loading: true };
+    case DELETE_CATEGORY_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        error: false,
+      };
+    case DELETE_CATEGORY_FAILED:
+      return {
+        loading: false,
+        error: action.payload,
+        success: false,
+      };
+    case DELETE_CATEGORY_RESET:
+      return { loading: false, success: false, error: false };
+    default:
+      return state
+  };
+ 
+}

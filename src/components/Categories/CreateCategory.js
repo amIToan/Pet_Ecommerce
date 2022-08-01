@@ -3,6 +3,7 @@ import { DropzoneArea } from "material-ui-dropzone";
 import Message from "../LoadingError/Error";
 import Loading from "../LoadingError/Loading";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import {
   createCategoryAction,
   updatedCate,
@@ -14,6 +15,7 @@ import {
 import { ImageURL } from "../../Helps";
 import { publicRequest } from "../../Helps";
 const CreateCategory = ({ cateId }) => {
+  const navigate = useHistory()
   const dispatch = useDispatch();
   const { listOfCategory, loading, error } = useSelector(
     (state) => state.CategoryList
@@ -54,8 +56,7 @@ const CreateCategory = ({ cateId }) => {
         return formData;
       }, new FormData());
     const formData = getFormData(Category);
-    if (Object.keys(Category).length === 0) {
-      console.log(formData, "create");
+    if (Object.keys(Category).length === 0 || !cateId) {
       dispatch(createCategoryAction(formData));
     } else {
       dispatch(updatedCate(cateId, formData));
@@ -65,11 +66,13 @@ const CreateCategory = ({ cateId }) => {
     if (createdError || updatedError) {
       dispatch({ type: UPDATE_CATEGORY_RESET });
       dispatch({ type: CREATE_CATEGORY_RESET });
+      navigate.push("/category")
     }
     if (updatedCategory || createdCategory) {
       alert("You have updated successfully!!!");
       dispatch({ type: UPDATE_CATEGORY_RESET });
       dispatch({ type: CREATE_CATEGORY_RESET });
+      navigate.push("/category")
     }
     return () => {
       setCategory({});
@@ -91,7 +94,6 @@ const CreateCategory = ({ cateId }) => {
       setCategory({});
     };
   }, [cateId]);
-  console.log(Category);
   return (
     <div className="col-md-12 col-lg-6">
       {(loading || createdLoading) && <Loading />}
@@ -161,7 +163,6 @@ const CreateCategory = ({ cateId }) => {
               acceptedFiles={["image/*"]}
               dropzoneText={"Drag and drop an image here or click"}
               onChange={(files) => {
-                console.log("vao cai trc")
                 if (Object.keys(files).length > 0) {
                   setCategory({
                     ...Category,
@@ -188,7 +189,6 @@ const CreateCategory = ({ cateId }) => {
               acceptedFiles={["image/*"]}
               dropzoneText={"Drag and drop an image here or click"}
               onChange={(files) => {
-                console.log("vao cai sau")
                 if (Object.keys(files).length > 0) {
                   setCategory({
                     ...Category,
@@ -210,7 +210,7 @@ const CreateCategory = ({ cateId }) => {
         </div>
         <div className="d-grid">
           <button className="btn btn-primary py-3">
-            {Object.keys(Category).length === 0
+            {!cateId
               ? "Create category"
               : "Update category"}
           </button>

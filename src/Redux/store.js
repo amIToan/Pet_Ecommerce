@@ -22,6 +22,7 @@ import {
   getAllCategory,
   createCategory,
   updateCategory,
+  deleteCate,
 } from "./Reducers/CategorReducer";
 import { updateBannerInfo } from "./Reducers/BannerReducer";
 import {
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   newsDeletion: newsDeleteReducer,
   branchCreate: branchCreateReducer,
   branchUpdate: branchUpdateReducer,
+  deletedCate: deleteCate,
 });
 
 // login
