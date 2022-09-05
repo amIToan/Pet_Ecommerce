@@ -2,7 +2,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 const BASE_URL =
   process.env.NODE_ENV === "production"
-    ? "http://admin.giai.vn:5000/api"
+    ? "https://admin.giai.vn:5000/api"
     : "http://localhost:5000/api";
 axios.defaults.withCredentials = true;
 const publicRequest = axios.create({
@@ -61,11 +61,11 @@ export const Config = () => {
 };
 export const ImageURL =
   process.env.NODE_ENV === "production"
-    ? "http://admin.giai.vn:5000/Images"
+    ? "https://admin.giai.vn:5000/Images"
     : "http://localhost:5000/Images";
 export const newsImageURL =
-  process.env.NODE_ENV === "production"
-    ? "http://admin.giai.vn:5000/Images/News"
+  process.env.NODE_ENV !== "production"
+    ? "https://admin.giai.vn:5000/Images/News"
     : "http://localhost:5000/Images/News";
 export const toastConfig = {
   position: "top-right",

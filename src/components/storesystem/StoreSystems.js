@@ -3,13 +3,15 @@ import Slider from "react-slick";
 import { useState, useEffect, memo } from "react";
 import publicRequest from "../../RequestMethos";
 import { newsImageURL } from "../../RequestMethos";
+import styled from "styled-components";
+
 const settings = {
   dots: false,
   infinite: true,
   speed: 500,
   slidesToShow: 3,
   slidesToScroll: 1,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 2500,
   responsive: [
     {
@@ -29,7 +31,7 @@ const settings = {
       },
     },
     {
-      breakpoint: 576,
+      breakpoint: 600,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -38,6 +40,10 @@ const settings = {
     },
   ],
 };
+const ImgRatioContainer = styled.div`
+  background: #ffffff url(${(props) => props.bg}) no-repeat center;
+   background-size: 100% 100%;
+`;
 const StoreSystems = () => {
   const [data, setData] = useState(null);
   useEffect(() => {
@@ -60,14 +66,16 @@ const StoreSystems = () => {
                 href={`/news/details/${data._id}`}
                 alt={data?.title}
                 key={index}
-                className="d-flex justify-content-center p-3"
+                className=" p-3 "
               >
-                <img
-                  src={`${newsImageURL}/${item}`}
-                  alt="testing"
-                  className="d-block img-fluid"
+                <ImgRatioContainer className="img-ratio-container" bg={`${newsImageURL}/${item}`}>
+                </ImgRatioContainer>
+                  {/* <img
+                    src={`${newsImageURL}/${item}`}
+                    alt="testing"
+                    className="d-block img-fluid w-100"
                   style={{ aspectRatio: 4 / 4 }}
-                />
+                  /> */}
               </a>
             ))}
           </Slider>

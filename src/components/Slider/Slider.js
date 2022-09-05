@@ -5,13 +5,16 @@ import { useSelector } from "react-redux";
 import { ImageURL } from "../../RequestMethos";
 const Container = styled.div`
   width: 100%;
+  display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
   display: flex;
   position: relative;
   overflow: hidden;
 `;
 const Arrow = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 2vw;
+  height: 2vw;
   background-color: #fff7f7;
   border-radius: 50%;
   display: flex;
@@ -44,8 +47,8 @@ const ImgContainer = styled.div`
   flex: 1;
 `;
 const Image = styled.img`
-  height: 80%;
-  max-width: 100%;
+  height: auto;
+  width: 100%;
 `;
 
 const Slider = () => {

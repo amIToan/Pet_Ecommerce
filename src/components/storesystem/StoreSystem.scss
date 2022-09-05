@@ -6,3 +6,21 @@
   opacity: 0.75;
   color: black;
 }
+
+.img-ratio-container {
+  aspect-ratio: 1/1;
+  // Fallback
+  @supports not (aspect-ratio: 1 / 1) {
+  &::before {
+    float: left;
+    padding-top: 100%;
+    content: "";
+  }
+
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+}
