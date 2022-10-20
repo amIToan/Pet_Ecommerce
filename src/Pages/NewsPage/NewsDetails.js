@@ -59,7 +59,10 @@ const NewsDetails = () => {
                 <div className="my-3">
                   {news.image?.length > 0 &&
                     news.image.map((item, index) => (
-                      <div key={index}>
+                      <div
+                        key={index}
+                        className="d-flex justify-content-center align-items-center p-3"
+                      >
                         <img
                           src={`${newsImageURL}/${item}`}
                           alt={news.title}

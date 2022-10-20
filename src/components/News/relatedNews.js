@@ -14,35 +14,40 @@ const RelatedNews = () => {
         fetchingData()
     }, [])
     return (
-        <div>
-            <h2 className="widget-title">
-                <span>BÀI VIẾT LIÊN QUAN</span>
-            </h2>
-            <div className="widget-content">
-                {relatedNews ?
-                    <>
-                        {
-                            relatedNews.length > 0 && relatedNews.map(item =>
-                                <div className="row mt-3" key={item._id}>
-                                    <div className="col-5">
-                                        <img src={`${newsImageURL}/${item.image[0]}`} alt="fsd" className="d-block img-fluid" />
-                                    </div>
-                                    <div className="col-7">
-                                        <Link to={`/news/details/${item._id}`} className="text-reset text-decoration-none">
-                                            MÁCH BẠN CÁCH CHỌN ĐỒ BƠI HỢP MỐT
-                                        </Link>
-                                    </div>
-                                </div>
-                            )
-                        }</> :
-                    <Alert variant={"danger"}>
-                        There's something wrong!!!
-                    </Alert>
-                }
-
-            </div>
+      <div>
+        <h2 className="widget-title">
+          <span>BÀI VIẾT LIÊN QUAN</span>
+        </h2>
+        <div className="widget-content">
+          {relatedNews ? (
+            <>
+              {relatedNews.length > 0 &&
+                relatedNews.map((item) => (
+                  <div className="row mt-3" key={item._id}>
+                    <div className="col-5">
+                      <img
+                        src={`${newsImageURL}/${item.image[0]}`}
+                        alt="fsd"
+                        className="d-block img-fluid"
+                      />
+                    </div>
+                    <div className="col-7">
+                      <Link
+                        to={`/news/details/${item._id}`}
+                        className="text-reset text-decoration-none"
+                      >
+                        {`${item.title?.substring(0, 100)} ...`}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+            </>
+          ) : (
+            <Alert variant={"danger"}>There's something wrong!!!</Alert>
+          )}
         </div>
-    )
+      </div>
+    );
 }
 
 export default memo(RelatedNews)

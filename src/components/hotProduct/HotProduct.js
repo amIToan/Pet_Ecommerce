@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 const HotProduct = () => {
   const dispatch = useDispatch();
   const [hotPros, setHotPros] = useState(null);
+  console.log("Hot", hotPros);
   useEffect(() => {
     async function fetchingProduct() {
       const productList = await publicRequest.get("/products/hot");
