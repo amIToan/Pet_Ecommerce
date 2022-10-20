@@ -59,11 +59,12 @@ productRoute.get(
         const newHotHots = [];
         newHotPros.forEach((item) => {
           products.forEach((element) => {
-            if (item == element._id.valueOf() || element.Type == 1) {
+            if ( element.Type == 2 || item == element._id.valueOf()) {
               newHotHots.push(element);
             }
           });
         });
+        // console.log("newHotPros", newHotPros);
         res.json(newHotHots);
       }
     } else {
@@ -146,7 +147,6 @@ productRoute.delete(
   asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
-      await product.remove();
       try {
         product.image?.length > 0 &&
           product.image.forEach((item) => {
@@ -156,9 +156,10 @@ productRoute.delete(
               });
             }
           });
-        product.image = [];
-        const updatedCate = await product.save();
-        res.status(201).json(updatedCate);
+        // product.image = [];
+        // const updatedCate = await product.save();
+        await product.remove();
+        res.status(201).send("Delete successfully!!!");
       } catch (error) {
         throw new Error(error);
       }

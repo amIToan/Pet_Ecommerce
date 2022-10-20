@@ -197,12 +197,12 @@ categoryRouter.delete(
         }
         foundCategory.categoryImage = null;
         const updatedCate = await foundCategory.save();
-        res.status(201).json(updatedCate);
+        // res.status(201).json(updatedCate);
       } catch (error) {
         throw new Error(error);
       }
       await foundCategory.remove();
-      res.json({ message: "Product deleted" });
+      res.status(201).json({ message: "Product deleted" });
     } else {
       res.status(404);
       throw new Error("Product not Found");
