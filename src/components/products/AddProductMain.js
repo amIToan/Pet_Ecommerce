@@ -51,6 +51,7 @@ const AddProductMain = () => {
       dispatch({ type: PRODUCT_CREATE_RESET });
       setNewProduct({});
       setCate({});
+      window.location.reload();
     }
   }, [product, dispatch]);
 

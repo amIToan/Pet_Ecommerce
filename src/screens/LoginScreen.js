@@ -44,6 +44,7 @@ const Login = ({ history }) => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                autoComplete
               />
             </div>
             <div className="mb-3">

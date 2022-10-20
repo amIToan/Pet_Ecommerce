@@ -41,9 +41,9 @@ export const listProducts = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message || error.response.data) {
-      dispatch(logout());
-    }
+    // if (message || error.response.data) {
+    //   dispatch(logout());
+    // }
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload: message,
@@ -74,9 +74,9 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message || error.response.data) {
-      dispatch(logout());
-    }
+    // if (message || error.response.data) {
+    //   dispatch(logout());
+    // }
     dispatch({
       type: PRODUCT_DELETE_FAIL,
       payload: message,
@@ -113,9 +113,9 @@ export const createProduct = (productInfo) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message || error.response.data) {
-      dispatch(logout());
-    }
+    // if (message || error.response.data) {
+    //   dispatch(logout());
+    // }
     dispatch({
       type: PRODUCT_CREATE_FAIL,
       payload: message,
@@ -134,9 +134,9 @@ export const editProduct = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message || error.response.data) {
-      dispatch(logout());
-    }
+    // if (message || error.response.data) {
+    //   dispatch(logout());
+    // }
     dispatch({
       type: PRODUCT_EDIT_FAIL,
       payload: message,
@@ -170,9 +170,9 @@ export const updateProduct = (id, product) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message || error.response.data) {
-      dispatch(logout());
-    }
+    // if (message || error.response.data) {
+    //   dispatch(logout());
+    // }
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
       payload: message,
